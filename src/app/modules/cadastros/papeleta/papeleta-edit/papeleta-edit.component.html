@@ -1,0 +1,156 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Papeleta" : "Nova Papeleta" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" id="teste" class="flex flex-col p-8 overflow-y-scroll overflow-x-hidden">
+        <mat-tab-group>
+            <mat-tab label="Dados da Papeleta"> 
+                <!-- MES - ANO - TRIPULANTE  -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Mês</mat-label>
+                                <select matNativeControl required formControlName="mes">
+                                    <option value=1>Janeiro</option>
+                                    <option value=2>Fevereiro</option>
+                                    <option value=3>Março</option>
+                                    <option value=4>Abril</option>
+                                    <option value=5>Maio</option>
+                                    <option value=6>Junho</option>
+                                    <option value=7>Julho</option>
+                                    <option value=8>Agosto</option>
+                                    <option value=9>Setembro</option>
+                                    <option value=10>Outubro</option>
+                                    <option value=11>Novembro</option>
+                                    <option value=12>Dezembro</option>
+                                  </select>
+                                <mat-error *ngIf="this.mainForm.get('mes').invalid">Informe o mês</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Ano</mat-label>
+                        <input matInput required formControlName="ano" type="number">
+                        <mat-error *ngIf="this.mainForm.get('ano').invalid">Informe o ano</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Tripulante</mat-label>
+                        <select matNativeControl id="tripulanteId" required formControlName="tripulanteId">
+                            <option *ngFor="let tripulante of tripulantes" value="{{tripulante.id}}">{{ tripulante.nome }}</option>
+                        </select>
+                        <mat-error *ngIf="this.mainForm.get('tripulanteId').invalid">Informe o tripulante</mat-error>
+                    </mat-form-field>
+                </div>          
+            </mat-tab>
+
+            <mat-tab label="Lançamentos"> 
+                <!-- ITENS PAPELETA FORM ARRAY -->
+                <ng-container formArrayName="itensPapeleta" *ngFor="let itemPapeleta of itensPapeletaArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Dia</mat-label>
+                                <input matInput required formControlName="dia" type="number">
+                                <mat-error *ngIf="this.itemPapeleta.get('dia').invalid">Informe o dia</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Início Jornada</mat-label>
+                                <input matInput formControlName="inicioJornada" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Calços Fora</mat-label>
+                                <input matInput formControlName="calcosFora" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Calços Chegada</mat-label>
+                                <input matInput formControlName="calcosChegada" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Início Almoço</mat-label>
+                                <input matInput formControlName="inicioAlmoco" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Término Almoço</mat-label>
+                                <input matInput formControlName="terminoAlmoco" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Interrupção Início</mat-label>
+                                <input matInput formControlName="inicioInterrupcaoProgramada" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Interrupção Término</mat-label>
+                                <input matInput formControlName="terminoInterrupcaoProgramada" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Término Jornada</mat-label>
+                                <input matInput formControlName="terminoJornada" type="time">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Situação</mat-label>
+                                        <select matNativeControl required formControlName="situacao">
+                                            <option value=1>Folga Regulamentar</option>
+                                            <option value=2>Folga Social</option>
+                                            <option value=3>Dia Normal</option>
+                                            <option value=4>Em Instrução</option>
+                                            <option value=5>Reserva</option>
+                                            <option value=6>Férias</option>
+                                            <option value=7>Em Curso</option>
+                                            <option value=8>Cheque Inicial</option>
+                                            <option value=9>CMA</option>
+                                            <option value=10>Dispensa Médica</option>
+                                            <option value=11>Ministrando Instrução</option>
+                                            <option value=12>Recheque</option>
+                                          </select>
+                                        <mat-error *ngIf="this.itemPapeleta.get('situacao').invalid">Informe a situação</mat-error>
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerItemPapeleta(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarItemPapeleta()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+        </mat-tab-group>       
+
+    </form>
+
+</div>

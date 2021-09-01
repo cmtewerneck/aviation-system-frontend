@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Filtros Extras</h1>
+<div mat-dialog-content>
+  <p>Gostaria de filtrar pelo item?</p><br>
+  <mat-form-field appearance="fill">
+    <input matInput [(ngModel)]="itemNomenclatura">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button [color]="'warn-400'" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button [color]="'accent'" (click)="exportToExcel()" cdkFocusInitial>Exportar</button>
+  <!-- <button mat-button [color]="'warn'" [mat-dialog-close]="data.animal" cdkFocusInitial>Exportar</button> -->
+</div>

@@ -1,0 +1,148 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        {{id ? "Editar SAE" : "Nova SAE" }}
+    </div>
+    
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+            <span class="ml-2 mr-1">Salvar</span>
+        </button>
+    </div>
+</div>
+
+<!-- Main -->
+
+<form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+    <!-- NUMERO - PILOTO - FUNCAO - EXAMINADOR -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Número</mat-label>
+            <input matInput required formControlName="numero">
+            <mat-error *ngIf="this.mainForm.get('numero').invalid">Informe o número da SAE</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Piloto</mat-label>
+            <input matInput required formControlName="piloto">
+            <mat-error *ngIf="this.mainForm.get('piloto').invalid">Informe o nome do piloto</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Função</mat-label>
+            <input matInput required formControlName="funcao">
+            <mat-error *ngIf="this.mainForm.get('funcao').invalid">Informe a função</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Examinador?</mat-label>
+            <select matNativeControl required formControlName="examinador">
+                <option value=true>Sim</option>
+                <option value=false>Não</option>
+              </select>
+            <mat-error *ngIf="this.mainForm.get('examinador').invalid">Informe se há examinador</mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- EXAMINADOR CANAC - EXAMINADOR NOMR - LOCALIZACAO - EQUIPAMENTO -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Canac do Examinador</mat-label>
+            <input matInput formControlName="examinadorCanac">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Nome do Examinador</mat-label>
+            <input matInput formControlName="examinadorNome">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Localização</mat-label>
+            <select matNativeControl required formControlName="localizacao">
+                <option value=1>Nacional</option>
+                <option value=2>Internacional</option>
+              </select>
+            <mat-error *ngIf="this.mainForm.get('localizacao').invalid">Informe a localização</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Equipamento</mat-label>
+            <input matInput required formControlName="equipamento">
+            <mat-error *ngIf="this.mainForm.get('equipamento').invalid">Informe o equipamento</mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- DATA - PAIS - CIDADE - SITAUCAO TREINAMENTO -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Data do Exame</mat-label>
+            <input matInput required formControlName="dataExame" type="date">
+            <mat-error *ngIf="this.mainForm.get('dataExame').invalid">Informe a data do exame</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>País</mat-label>
+            <input matInput required formControlName="pais">
+            <mat-error *ngIf="this.mainForm.get('pais').invalid">Informe o país do exame</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Cidade</mat-label>
+            <input matInput required formControlName="cidade">
+            <mat-error *ngIf="this.mainForm.get('cidade').invalid">Informe a cidade do exame</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Situação</mat-label>
+            <select matNativeControl required formControlName="situacaoTreinamento">
+                <option value=1>Em Andamento</option>
+                <option value=2>Pendente</option>
+                <option value=3>Finalizado</option>
+              </select>
+            <mat-error *ngIf="this.mainForm.get('situacaoTreinamento').invalid">Informe a situação do treinamento</mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- GRU DIGITOS - VALOR - PAGAMENTO - NRT -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>GRU Dígitos</mat-label>
+            <input matInput formControlName="gruDigitos">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="valor">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Data do Pagamento</mat-label>
+            <input matInput formControlName="dataPagamento" type="date">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>NRT</mat-label>
+            <select matNativeControl id="nrtId" required formControlName="nrtId">
+                <option *ngFor="let nrt of nrts" value="{{nrt.id}}">{{ nrt.numero }}</option>
+            </select>
+            <mat-error *ngIf="this.mainForm.get('nrtId').invalid">Informe o número da NRT</mat-error>
+        </mat-form-field>     
+    </div>
+
+</form>
+</div>

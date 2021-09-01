@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Filtros Extras</h1>
+<div mat-dialog-content>
+  <p>Gostaria de filtrar pela localização do material?</p><br>
+  <mat-form-field appearance="fill">
+    <input matInput [(ngModel)]="localizacao">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button [color]="'warn-400'" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button [color]="'accent'" (click)="exportToPdf()" cdkFocusInitial>Exportar</button>
+</div>

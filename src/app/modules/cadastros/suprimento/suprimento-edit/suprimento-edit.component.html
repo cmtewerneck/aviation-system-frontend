@@ -1,0 +1,104 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        {{id ? "Editar Suprimento" : "Novo Suprimento" }}
+    </div>
+    
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+            <span class="ml-2 mr-1">Salvar</span>
+        </button>
+    </div>
+</div>
+
+<!-- Main -->
+
+<form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+    
+    <!-- CODIGO - NOMENCLATURA -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Código</mat-label>
+            <input matInput formControlName="codigo">
+            <mat-error *ngIf="this.mainForm.get('codigo').invalid">Informe a código</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Nomenclatura</mat-label>
+            <input matInput formControlName="nomenclatura">
+            <mat-error *ngIf="this.mainForm.get('nomenclatura').invalid">Informe a nomenclatura</mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- PART NUMBER - QNTD INICIAL - LOCALIZACAO - PN ALTERNATIVO -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>PartNumber</mat-label>
+            <input matInput formControlName="partNumber">
+            <mat-error *ngIf="this.mainForm.get('partNumber').invalid">Informe o PN</mat-error>
+        </mat-form-field>
+        
+        
+        <mat-form-field class="flex-1 ml-2" *ngIf="!isEditing">
+            <mat-label>Quantidade Inicial</mat-label>
+            <input matInput formControlName="quantidade" type="number">
+            <mat-error *ngIf="this.mainForm.get('quantidade').invalid">Informe a quantidade inicial</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Localização</mat-label>
+            <input matInput formControlName="localizacao">
+            <mat-error *ngIf="this.mainForm.get('localizacao').invalid">Informe o localização</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>PartNumber Alternativo</mat-label>
+            <input matInput formControlName="partNumberAlternativo">
+            <mat-error *ngIf="this.mainForm.get('partNumberAlternativo').invalid">Informe o PN Alternativo</mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- APLICACAO - CAPITULO - SERIAL NUMBER - DOC -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Aplicação</mat-label>
+            <input matInput formControlName="aplicacao">
+            <mat-error *ngIf="this.mainForm.get('aplicacao').invalid">Informe a aplicação</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Capítulo</mat-label>
+            <input matInput formControlName="capitulo">
+            <mat-error *ngIf="this.mainForm.get('capitulo').invalid">Informe o capítulo</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Serial Number</mat-label>
+            <input matInput formControlName="serialNumber">
+            <mat-error *ngIf="this.mainForm.get('serialNumber').invalid">Informe o SN</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>DOC</mat-label>
+            <input matInput formControlName="doc">
+            <mat-error *ngIf="this.mainForm.get('doc').invalid">Informe o DOC</mat-error>
+        </mat-form-field>        
+    </div>
+    
+</form>
+
+</div>

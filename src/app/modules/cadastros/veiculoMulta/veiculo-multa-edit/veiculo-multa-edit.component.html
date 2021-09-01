@@ -1,0 +1,90 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        {{id ? "Editar Multa" : "Nova Multa" }}
+    </div>
+    
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+            <span class="ml-2 mr-1">Salvar</span>
+        </button>
+    </div>
+</div>
+
+<!-- Main -->
+
+<form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+    
+    <!-- DATA - VEICULO - AUTO DE INFRACAO - RESPONSAVEL -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Data</mat-label>
+            <input matInput required formControlName="data" type="date">
+            <mat-error *ngIf="this.mainForm.get('data').invalid">Informe a data</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Veículo</mat-label>
+            <select matNativeControl id="veiculoId" required formControlName="veiculoId">
+                <option *ngFor="let veiculo of veiculos" value="{{veiculo.id}}">{{ veiculo.placa }}</option>
+            </select>
+            <mat-error *ngIf="this.mainForm.get('veiculoId').invalid">Informe o veículo</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Auto de Infração</mat-label>
+            <input matInput required formControlName="autoInfracao">
+            <mat-error *ngIf="this.mainForm.get('autoInfracao').invalid">Informe o auto de infração</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Responsável</mat-label>
+            <input matInput formControlName="responsavel">
+        </mat-form-field>
+    </div>
+    
+    <!-- DESCRICAO - CLASSIFICACAO - SITUACAO - VALOR -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Descrição</mat-label>
+            <input matInput required formControlName="descricao">
+            <mat-error *ngIf="this.mainForm.get('descricao').invalid">Informe a descrição</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Classificação</mat-label>
+            <input matInput formControlName="classificacao">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Situação</mat-label>
+            <select matNativeControl required formControlName="situacao">
+                <option value=true>Pago</option>
+                <option value=false>Não Pago</option>
+            </select>
+            <mat-error *ngIf="this.mainForm.get('situacao').invalid">Informe a situação da multa</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="valor" prefix="R$ " mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+    </div>
+
+</form>
+
+</div>

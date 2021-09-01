@@ -1,0 +1,110 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Cautela" : "Nova Cautela" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-y-scroll overflow-x-hidden">
+        <mat-tab-group>
+            <mat-tab label="Dados da Cautela"> 
+                <!-- ABERTURA - RESPONSAVEL - DESTINATARIO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Data de Abertura</mat-label>
+                        <input matInput required formControlName="dataAbertura" type="date">
+                        <mat-error *ngIf="this.mainForm.get('dataAbertura').invalid">Informe a data de abertura</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Responsável</mat-label>
+                        <input matInput required formControlName="responsavel">
+                        <mat-error *ngIf="this.mainForm.get('responsavel').invalid">Informe o responsável</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Destinatário</mat-label>
+                        <input matInput required formControlName="destinatario">
+                        <mat-error *ngIf="this.mainForm.get('destinatario').invalid">Informe o destinatário</mat-error>
+                    </mat-form-field>
+                </div>          
+            </mat-tab>
+
+            <mat-tab label="Ferramentas"> 
+                <!-- ITENS CAUTELA FORM ARRAY -->
+                <ng-container formArrayName="itensCautela" *ngFor="let itemCautela of itensCautelaArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Data da Entrega</mat-label>
+                                <input matInput required formControlName="dataEntrega" type="date">
+                                <mat-error *ngIf="this.itemCautela.get('dataEntrega').invalid">Informe a data de entrega</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Ferramenta</mat-label>
+                                <select matNativeControl id="ferramentaId" required formControlName="ferramentaId">
+                                    <option *ngFor="let ferramenta of ferramentas" value="{{ferramenta.id}}">{{ ferramenta.nomenclatura }}</option>
+                                </select>
+                                <mat-error *ngIf="this.itemCautela.get('ferramentaId').invalid">Informe a ferramenta</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Quantidade</mat-label>
+                                <input matInput required formControlName="quantidade" type="number">
+                                <mat-error *ngIf="this.itemCautela.get('quantidade').invalid">Informe a quantidade</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Status</mat-label>
+                                <select matNativeControl required formControlName="status">
+                                    <option value=1>Devolvido</option>
+                                    <option value=2>Não Devolvido</option>
+                                  </select>
+                                <mat-error *ngIf="this.itemCautela.get('status').invalid">Informe se o item foi devolvido</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Data da Devolução</mat-label>
+                                <input matInput formControlName="dataDevolucao" type="date">
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerItemCautela(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarItemCautela()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+        </mat-tab-group>       
+
+    </form>
+
+</div>

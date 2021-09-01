@@ -1,0 +1,147 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        {{id ? "Editar Contrato" : "Novo Contrato" }}
+    </div>
+    
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+            <span class="ml-2 mr-1">Salvar</span>
+        </button>
+    </div>
+</div>
+
+<!-- Main -->
+
+<form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+    <mat-tab-group>
+        <mat-tab label="Dados do Contrato"> 
+            <!-- CODIGO - CONTRATANTE - LOCAL - VALOR -->
+            <div class="flex flex-row">
+                <mat-form-field class="flex-1">
+                    <mat-label>Código</mat-label>
+                    <input matInput required formControlName="codigo">
+                    <mat-error *ngIf="this.mainForm.get('codigo').invalid">Informe o código</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="flex-1 ml-2">
+                    <mat-label>Contratante</mat-label>
+                    <input matInput required formControlName="contratante">
+                    <mat-error *ngIf="this.mainForm.get('contratante').invalid">Informe a contratante</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="flex-1 ml-2">
+                    <mat-label>Local</mat-label>
+                    <input matInput formControlName="local">
+                </mat-form-field>
+                
+                <mat-form-field class="flex-1 ml-2">
+                    <mat-label>Valor</mat-label>
+                    <input matInput formControlName="valor" prefix="R$ " mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+            </div>
+            
+            <!-- INICIO - TERMINO - ATIVO -->
+            <div class="flex flex-row">
+                <mat-form-field class="flex-1">
+                    <mat-label>Início</mat-label>
+                    <input matInput formControlName="inicio" type="date">
+                    <mat-error *ngIf="this.mainForm.get('inicio').invalid">Informe a data de início</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="flex-1 ml-2">
+                    <mat-label>Término</mat-label>
+                    <input matInput formControlName="termino" type="date">
+                    <mat-error *ngIf="this.mainForm.get('termino').invalid">Informe a data de término</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="flex-1 ml-2">
+                    <mat-label>Situação</mat-label>
+                    <select matNativeControl required formControlName="ativo">
+                        <option value=true>Ativo</option>
+                        <option value=false>Inativo</option>
+                    </select>
+                    <mat-error *ngIf="this.mainForm.get('ativo').invalid">Informe a situação do contrato</mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- DESCRICAO -->
+            <div class="flex flex-col">
+                <mat-form-field>
+                    <mat-label>Descrição</mat-label>
+                    <input matInput required formControlName="descricao">
+                    <mat-error *ngIf="this.mainForm.get('descricao').invalid">Informe a descrição</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-tab>
+        
+        <mat-tab label="Aeronaves">
+            <!-- AERONAVES FORM ARRAY -->
+            <ng-container formArrayName="aeronavesContratos" *ngFor="let aeronaveContrato of aeronavesContratosArray.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                    <div class="flex flex-row">
+                        <mat-form-field class="flex-1">
+                            <mat-label>Matrícula</mat-label>
+                            <select matNativeControl id="aeronaveId" required formControlName="aeronaveId">
+                                <option *ngFor="let aeronave of aeronaves" value="{{aeronave.id}}">{{ aeronave.matricula }}</option>
+                            </select>
+                            <mat-error *ngIf="this.aeronaveContrato.get('aeronaveId').invalid">Informe a aeronave</mat-error>
+                        </mat-form-field>
+
+                        <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerAeronave(i)">
+                            <mat-icon class="delete-btn">delete_forever</mat-icon>
+                        </button>
+                    </div>
+                    
+                </ng-container>
+            </ng-container>
+            
+            <button mat-mini-fab (click)="adicionarAeronave()">
+                <mat-icon class="add-course-btn">add</mat-icon>
+            </button>
+        </mat-tab>
+        
+        <mat-tab label="Tripulantes">
+            <!-- TRIPULANTES FORM ARRAY -->
+            <ng-container formArrayName="pessoasContratos" *ngFor="let pessoa of pessoasContratosArray.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                    <div class="flex flex-row">
+                        <mat-form-field class="flex-1">
+                            <mat-label>Nome</mat-label>
+                            <select matNativeControl id="pessoaId" required formControlName="pessoaId">
+                                <option *ngFor="let tripulante of tripulantes" value="{{tripulante.id}}">{{ tripulante.nome }}</option>
+                            </select>
+                            <mat-error *ngIf="this.pessoa.get('pessoaId').invalid">Informe o tripulante</mat-error>
+                        </mat-form-field>
+
+                        <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerTripulante(i)">
+                            <mat-icon class="delete-btn">delete_forever</mat-icon>
+                        </button>
+                    </div>
+                    
+                </ng-container>
+            </ng-container>
+            
+            <button mat-mini-fab (click)="adicionarTripulante()">
+                <mat-icon class="add-course-btn">add</mat-icon>
+            </button>
+        </mat-tab>
+    </mat-tab-group>
+    
+</form>
+
+</div>

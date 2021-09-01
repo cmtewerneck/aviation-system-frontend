@@ -1,0 +1,101 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Relprev" : "Novo Relprev" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+        <!-- DATAHORA - AEROPORTO - ASSUNTO - LOCAL -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Data/Hora</mat-label>
+                <input matInput required formControlName="dataHora" type="datetime-local">
+                <mat-error *ngIf="this.mainForm.get('dataHora').invalid">Informe a data e hora</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Aeroporto</mat-label>
+                <input matInput required formControlName="aeroporto">
+                <mat-error *ngIf="this.mainForm.get('aeroporto').invalid">Informe o aeroporto</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Assunto</mat-label>
+                <input matInput required formControlName="assunto">
+                <mat-error *ngIf="this.mainForm.get('assunto').invalid">Informe o assunto</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Local</mat-label>
+                <input matInput required formControlName="local">
+                <mat-error *ngIf="this.mainForm.get('local').invalid">Informe o local</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- ORGANIZACAO - NOME - EMAIL - TELEFONE -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Organização</mat-label>
+                <input matInput formControlName="organizacao">
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome">
+                <mat-error *ngIf="this.mainForm.get('nome').invalid">Informe o nome</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="this.mainForm.get('email').hasError('email')">E-mail com formato inválido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Telefone</mat-label>
+                <input matInput formControlName="telefone" prefix="+55 " mask="(00) 00000-0000">
+            </mat-form-field>
+        </div>
+
+        <!-- PESSOAL ENVOLVIDO - MENSAGEM -->
+        <div class="flex flex-col">
+            <mat-form-field>
+                <mat-label>Pessoal Envolvido</mat-label>
+                <input matInput required formControlName="pessoalEnvolvido">
+                <mat-error *ngIf="this.mainForm.get('pessoalEnvolvido').invalid">Informe as pessoas envolvidas</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Mensagem</mat-label>
+                <input matInput required formControlName="mensagem">
+                <mat-error *ngIf="this.mainForm.get('mensagem').invalid">Informe a mensagem</mat-error>
+            </mat-form-field>
+        </div>
+
+    </form>
+
+</div>

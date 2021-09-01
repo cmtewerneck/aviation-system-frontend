@@ -1,0 +1,139 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Aluno" : "Novo Aluno" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+        <!-- NOME - TIPO PESSOA - DOCUMENTO - SEXO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Nome</mat-label>
+                <input matInput required formControlName="nome">
+                <mat-error *ngIf="this.mainForm.get('nome').invalid">Informe o nome</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Tipo de Pessoa</mat-label>
+                <select matNativeControl required formControlName="tipoPessoa">
+                    <option value=1>Física</option>
+                    <option value=2>Jurídica</option>
+                </select>
+                <mat-error *ngIf="this.mainForm.get('tipoPessoa').invalid">Informe o tipo de pessoa</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Documento</mat-label>
+                <input matInput required formControlName="documento" mask="CPF_CNPJ">
+                <mat-error *ngIf="this.mainForm.get('documento').invalid">Informe o documento</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Sexo</mat-label>
+                <select matNativeControl formControlName="sexo">
+                    <option value=1>Masculino</option>
+                    <option value=2>Feminino</option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <!-- ESTADO CIVIL - TELEFONE - EMAIL - DATA NASCIMENTO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Estado Civil</mat-label>
+                <input matInput formControlName="estadoCivil">
+                <mat-error *ngIf="this.mainForm.get('estadoCivil').invalid">Informe o estado civil</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Telefone</mat-label>
+                <input matInput formControlName="telefone" prefix="+55 " mask="(00) 00000-0000">
+                <mat-error *ngIf="this.mainForm.get('telefone').invalid">Informe o telefone</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="this.mainForm.get('email').hasError('email')">E-mail com formato inválido</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Data de Nascimento</mat-label>
+                <input matInput formControlName="dataNascimento" type="date">
+            </mat-form-field>
+        </div>
+
+        <!-- VALIDADE CMA - CANAC - RG - ORGAO EMISSOR -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Validade CMA</mat-label>
+                <input matInput formControlName="validadeCMA" type="date">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>CANAC</mat-label>
+                <input matInput formControlName="canac" mask="000000">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>RG</mat-label>
+                <input matInput required formControlName="rg">
+                <mat-error *ngIf="this.mainForm.get('rg').invalid">Informe o rg</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Órgão Emissor</mat-label>
+                <input matInput formControlName="orgaoEmissor">
+            </mat-form-field>
+        </div>
+
+        <!-- TITULO ELEITOR - NUMERO PIS - NUMERO CTPS - NUMERO CNH -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Título de Eleitor</mat-label>
+                <input matInput formControlName="tituloEleitor">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>PIS</mat-label>
+                <input matInput formControlName="numeroPis">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>CTPS</mat-label>
+                <input matInput formControlName="numeroCtps">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>CNH</mat-label>
+                <input matInput formControlName="numeroCnh">
+            </mat-form-field>
+        </div>        
+
+    </form>
+
+</div>

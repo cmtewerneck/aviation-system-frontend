@@ -1,0 +1,171 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Ordem de Serviço" : "Nova Ordem de Serviço" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col overflow-y-scroll overflow-x-hidden p-8">
+        <mat-tab-group>
+            <mat-tab label="Dados da OS"> 
+                <!-- NUMERO ORDEM - TIPO - TTSN - TCSN POUSOS -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Número</mat-label>
+                        <input matInput required formControlName="numeroOrdem">
+                        <mat-error *ngIf="this.mainForm.get('numeroOrdem').invalid">Informe o número da ordem</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Tipo</mat-label>
+                        <input matInput formControlName="tipo">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>TTSN</mat-label>
+                        <input matInput formControlName="ttsn">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>TCSN Pousos</mat-label>
+                        <input matInput formControlName="tcsnPousos">
+                    </mat-form-field>
+                </div>
+        
+                <!-- DATA ABERTURA - TTSN MOTOR - TCSN CICLOS - DATA FECHAMENTO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Data de Abertura</mat-label>
+                        <input matInput required formControlName="dataAbertura" type="date">
+                        <mat-error *ngIf="this.mainForm.get('dataAbertura').invalid">Informe a data de abertura</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>TTSN Motor</mat-label>
+                        <input matInput formControlName="ttsnMotor">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>TCSN Ciclos</mat-label>
+                        <input matInput formControlName="tcsnCiclos">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Data de Fechamento</mat-label>
+                        <input matInput formControlName="dataFechamento" type="date">
+                    </mat-form-field>
+                </div>
+        
+                <!-- REQUISICAO MATERIAIS - REALiZADO POR - REALIZADO POR ANAC - DATA REALIZACAO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Requisição de Materiais</mat-label>
+                        <input matInput formControlName="requisicaoMateriais">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Realizado Por</mat-label>
+                        <input matInput formControlName="realizadoPor">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>CANAC do Realizador</mat-label>
+                        <input matInput formControlName="realizadoPorAnac">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Data da Realização</mat-label>
+                        <input matInput formControlName="dataRealizacao" type="date">
+                    </mat-form-field>
+                </div>
+        
+                <!-- INSPECIONADO POR - INSPECIONADO POR ANAC - DATA INSPECAO - MATRICULA -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Inspecionado Por</mat-label>
+                        <input matInput formControlName="inspecionadoPor">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>CANAC do Inspetor</mat-label>
+                        <input matInput formControlName="inspecionadoPorAnac">
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Data da Inspeção</mat-label>
+                        <input matInput formControlName="dataInspecao" type="date">
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Matrícula</mat-label>
+                        <select matNativeControl id="aeronaveId" required formControlName="aeronaveId">
+                            <option *ngFor="let aeronave of aeronaves" value="{{aeronave.id}}">{{ aeronave.matricula }}</option>
+                        </select>
+                        <mat-error *ngIf="this.mainForm.get('aeronaveId').invalid">Informe a aeronave</mat-error>
+                    </mat-form-field>
+                </div>            
+            </mat-tab>
+
+            <mat-tab label="Serviços"> 
+                <!-- SERVIÇOS FORM ARRAY -->
+                <ng-container formArrayName="itens" *ngFor="let item of itensArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Descrição</mat-label>
+                                <select matNativeControl id="servicoId" required formControlName="servicoId">
+                                    <option *ngFor="let servico of servicos" value="{{servico.id}}">{{ servico.titulo }}</option>
+                                </select>
+                                <mat-error *ngIf="this.item.get('servicoId').invalid">Informe o serviço</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Status</mat-label>
+                                <select matNativeControl required formControlName="status">
+                                    <option value=1>Pendente</option>
+                                    <option value=2>Em Execução</option>
+                                    <option value=3>Aguardando Peça</option>
+                                    <option value=4>Finalizado</option>
+                                  </select>
+                                <mat-error *ngIf="this.item.get('status').invalid">Informe o status do serviço</mat-error>
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerServico(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarServico()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+        </mat-tab-group>       
+
+    </form>
+
+</div>

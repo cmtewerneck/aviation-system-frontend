@@ -1,0 +1,97 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Diária" : "Nova Diária" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+        <!-- DATA - VALOR -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Data</mat-label>
+                <input matInput required formControlName="data" type="date">
+                <mat-error *ngIf="this.mainForm.get('data').invalid">Informe a data</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Colaborador</mat-label>
+                <select matNativeControl id="colaboradorId" required formControlName="colaboradorId">
+                    <option *ngFor="let pessoa of pessoas" value="{{pessoa.id}}">{{ pessoa.nome }}</option>
+                </select>
+                <mat-error *ngIf="this.mainForm.get('colaboradorId').invalid">Informe o colaborador</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Valor</mat-label>
+                <input matInput required formControlName="valor" prefix="R$ " mask="separator.2" thousandSeparator=".">
+                <mat-error *ngIf="this.mainForm.get('valor').invalid">Informe o valor</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- FINALIDADE -->
+        <div class="flex flex-col">
+            <mat-form-field>
+                <mat-label>Finalidade</mat-label>
+                <input matInput required formControlName="finalidade">
+                <mat-error *ngIf="this.mainForm.get('finalidade').invalid">Informe a finalidade</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- STATUS - FORMA PAGAMENTO - CONTRATO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Status</mat-label>
+                <select matNativeControl required formControlName="status">
+                    <option value=1>Pago</option>
+                    <option value=2>Não Pago</option>
+                  </select>
+                <mat-error *ngIf="this.mainForm.get('status').invalid">Informe o status do pagamento</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Forma de Pagamento</mat-label>
+                <select matNativeControl formControlName="formaPagamento">
+                    <option value=1>Dinheiro</option>
+                    <option value=2>Cartão</option>
+                    <option value=3>Boleto</option>
+                    <option value=4>PIX</option>
+                    <option value=5>Transferência</option>
+                  </select>
+                <mat-error *ngIf="this.mainForm.get('formaPagamento').invalid">Informe a forma de pagamento</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Contrato</mat-label>
+                <select matNativeControl id="contratoId" formControlName="contratoId">
+                    <option *ngFor="let contrato of contratos" value="{{contrato.id}}">{{ contrato.codigo }}</option>
+                </select>
+            </mat-form-field>
+        </div>
+
+    </form>
+
+</div>

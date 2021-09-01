@@ -1,0 +1,366 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Aeronave" : "Nova Aeronave" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col overflow-y-scroll overflow-x-hidden p-8">
+        <mat-tab-group>
+            <mat-tab label="Especificações"> 
+                <!-- MATRICULA - FABRICANTE - CATEGORIA - MODELO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Matrícula</mat-label>
+                        <input matInput formControlName="matricula" mask="SS-SSS">
+                        <mat-error *ngIf="this.mainForm.get('matricula').invalid">Informe a matrícula</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Fabricante</mat-label>
+                        <input matInput formControlName="fabricante">
+                        <mat-error *ngIf="this.mainForm.get('fabricante').invalid">Informe o fabricante</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Categoria</mat-label>
+                        <input matInput formControlName="categoria">
+                        <mat-error *ngIf="this.mainForm.get('categoria').invalid">Informe a categoria</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Modelo</mat-label>
+                        <input matInput formControlName="modelo">
+                        <mat-error *ngIf="this.mainForm.get('modelo').invalid">Informe o modelo</mat-error>
+                    </mat-form-field>
+                </div>
+        
+                <!-- NUMERO DE SERIE - ANO - PESO VAZIO - PESO BASICO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Número de Série</mat-label>
+                        <input matInput formControlName="numeroSerie">
+                        <mat-error *ngIf="this.mainForm.get('numeroSerie').invalid">Informe o número de série</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Ano</mat-label>
+                        <input matInput formControlName="ano" type="number">
+                        <mat-error *ngIf="this.mainForm.get('ano').invalid">Informe o ano</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Peso Vazio</mat-label>
+                        <input matInput formControlName="pesoVazio" mask="separator.2" thousandSeparator="." >
+                        <span matSuffix>KG</span>
+                        <mat-error *ngIf="this.mainForm.get('pesoVazio').invalid">Informe o peso vazio</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Peso Básico</mat-label>
+                        <input matInput formControlName="pesoBasico" mask="separator.2" thousandSeparator=".">
+                        <span matSuffix>KG</span>
+                        <mat-error *ngIf="this.mainForm.get('pesoBasico').invalid">Informe o peso básico</mat-error>
+                    </mat-form-field>
+                </div>
+        
+                <!-- HORAS TOTAIS - PROXIMA INTERVENCAO - HORAS RESTANTES - TIPO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Horas Totais</mat-label>
+                        <input matInput formControlName="horasTotais" mask="separator.2" thousandSeparator=".">
+                        <mat-error *ngIf="this.mainForm.get('horasTotais').invalid">Informe as horas totais</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Próxima Intervenção</mat-label>
+                        <input matInput formControlName="proximaIntervencao" mask="separator.2" thousandSeparator=".">
+                        <mat-error *ngIf="this.mainForm.get('proximaIntervencao').invalid">Informe a próxima intervenção</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Horas Restantes</mat-label>
+                        <input matInput formControlName="horasRestantes" mask="separator.2" thousandSeparator=".">
+                        <mat-error *ngIf="this.mainForm.get('horasRestantes').invalid">Informe as horas restantes</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Tipo</mat-label>
+                        <select matNativeControl required formControlName="tipoAeronave">
+                            <option value=1>HMNC</option>
+                            <option value=2>HMNT</option>
+                            <option value=3>HMLT</option>
+                        </select>
+                        <mat-error *ngIf="this.mainForm.get('tipoAeronave').invalid">Informe o tipo da aeronave</mat-error>
+                    </mat-form-field>
+                </div>
+        
+                <!-- ULTIMA PESAGEM - PROXIMA PESAGEM - ATIVO - SITUACAO -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Última Pesagem</mat-label>
+                        <input matInput formControlName="ultimaPesagem" type="date">
+                        <mat-error *ngIf="this.mainForm.get('ultimaPesagem').invalid">Informe a última pesagem</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Próxima Pesagem</mat-label>
+                        <input matInput formControlName="proximaPesagem" type="date">
+                        <mat-error *ngIf="this.mainForm.get('proximaPesagem').invalid">Informe a próxima pesagem</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Ativo</mat-label>
+                        <select matNativeControl required formControlName="ativo">
+                            <option value=true>Sim</option>
+                            <option value=false>Não</option>
+                          </select>
+                        <mat-error *ngIf="this.mainForm.get('ativo').invalid">Informe se a aeronave está ativa</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Situação</mat-label>
+                        <select matNativeControl required formControlName="situacao">
+                            <option value=true>Operacional</option>
+                            <option value=false>Fora de Operação</option>
+                          </select>
+                        <mat-error *ngIf="this.mainForm.get('situacao').invalid">Informe a situação da aeronave</mat-error>
+                    </mat-form-field>
+                </div>            
+            </mat-tab>
+
+            <mat-tab label="Documentos"> 
+                <!-- DOCUMENTOS FORM ARRAY -->
+                <ng-container formArrayName="aeronavesDocumentos" *ngFor="let aeronaveDocumento of aeronavesDocumentosArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Título</mat-label>
+                                <input matInput required formControlName="titulo">
+                                <mat-error *ngIf="this.aeronaveDocumento.get('titulo').invalid">Informe o título</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Data de Emissão</mat-label>
+                                <input matInput formControlName="dataEmissao" type="date">
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Data de Validade</mat-label>
+                                <input matInput formControlName="dataValidade" type="date">
+                                <mat-error *ngIf="this.aeronaveDocumento.get('dataValidade').invalid">Informe a data de validade</mat-error>
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerDocumento(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarDocumento()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+
+            <mat-tab label="Motores"> 
+                <!-- MOTORES FORM ARRAY -->
+                <ng-container formArrayName="aeronavesMotores" *ngFor="let aeronaveMotor of aeronavesMotoresArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Fabricante</mat-label>
+                                <input matInput required formControlName="fabricante">
+                                <mat-error *ngIf="this.aeronaveMotor.get('fabricante').invalid">Informe o fabricante</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Modelo</mat-label>
+                                <input matInput required formControlName="modelo">
+                                <mat-error *ngIf="this.aeronaveMotor.get('modelo').invalid">Informe o modelo</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Número de Série</mat-label>
+                                <input matInput required formControlName="numeroSerie">
+                                <mat-error *ngIf="this.aeronaveMotor.get('numeroSerie').invalid">Informe o número de série</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Horas Totais</mat-label>
+                                <input matInput formControlName="horasTotais" mask="separator.2" thousandSeparator=".">
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Ciclos Totais</mat-label>
+                                <input matInput formControlName="ciclosTotais" mask="separator.2" thousandSeparator=".">
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerMotor(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarMotor()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+
+            <mat-tab label="Primeiros Socorros"> 
+                <!-- PRIMEIROS SOCORROS FORM ARRAY -->
+                <ng-container formArrayName="primeirosSocorros" *ngFor="let primeiroSocorro of primeirosSocorrosArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Descrição</mat-label>
+                                <input matInput required formControlName="descricao">
+                                <mat-error *ngIf="this.primeiroSocorro.get('descricao').invalid">Informe a descrição</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Data Compra</mat-label>
+                                <input matInput formControlName="dataCompra" type="date">
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Validade</mat-label>
+                                <input matInput required formControlName="dataValidade" type="date">
+                                <mat-error *ngIf="this.primeiroSocorro.get('dataValidade').invalid">Informe a validade</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Quantidade</mat-label>
+                                <input matInput required formControlName="quantidade" type="number">
+                                <mat-error *ngIf="this.primeiroSocorro.get('quantidade').invalid">Informe a quantidade</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Tipo</mat-label>
+                                <input matInput formControlName="tipo">
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerPrimeiroSocorro(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarPrimeiroSocorro()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+
+            <mat-tab label="Rotor Principal"> 
+                <!-- ROTORES PRINCIPAIS FORM ARRAY -->
+                <ng-container formArrayName="rotoresPrincipais" *ngFor="let rotorPrincipal of rotoresPrincipaisArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>PartNumber</mat-label>
+                                <input matInput required formControlName="partNumber">
+                                <mat-error *ngIf="this.rotorPrincipal.get('partNumber').invalid">Informe o PN</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Número de Série</mat-label>
+                                <input matInput required formControlName="numeroSerie">
+                                <mat-error *ngIf="this.rotorPrincipal.get('numeroSerie').invalid">Informe o número de série</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Horas Totais</mat-label>
+                                <input matInput formControlName="horasTotais" mask="separator.2" thousandSeparator=".">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Ciclos Totais</mat-label>
+                                <input matInput formControlName="ciclosTotais" mask="separator.2" thousandSeparator=".">
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerRotorPrincipal(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarRotorPrincipal()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+
+            <mat-tab label="Rotor Cauda"> 
+                <!-- ROTORES CAUDA FORM ARRAY -->
+                <ng-container formArrayName="rotoresCauda" *ngFor="let rotorCauda of rotoresCaudaArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>PartNumber</mat-label>
+                                <input matInput required formControlName="partNumber">
+                                <mat-error *ngIf="this.rotorCauda.get('partNumber').invalid">Informe o PN</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Número de Série</mat-label>
+                                <input matInput required formControlName="numeroSerie">
+                                <mat-error *ngIf="this.rotorCauda.get('numeroSerie').invalid">Informe o número de série</mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Horas Totais</mat-label>
+                                <input matInput formControlName="horasTotais" mask="separator.2" thousandSeparator=".">
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Ciclos Totais</mat-label>
+                                <input matInput formControlName="ciclosTotais" mask="separator.2" thousandSeparator=".">
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerRotorCauda(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarRotorCauda()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+        </mat-tab-group>
+
+       
+
+    </form>
+
+</div>

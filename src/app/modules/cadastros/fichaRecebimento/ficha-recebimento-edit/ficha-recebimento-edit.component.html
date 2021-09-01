@@ -1,0 +1,217 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Ficha" : "Nova Ficha" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+        <mat-tab-group>
+
+            <mat-tab label="Dados da Ficha"> 
+                <!-- AERONAVE - ENTRADA - LOCAL - RESPONSAVEL - SAIDA -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Matrícula</mat-label>
+                        <select matNativeControl id="aeronaveId" required formControlName="aeronaveId">
+                            <option *ngFor="let aeronave of aeronaves" value="{{aeronave.id}}">{{ aeronave.matricula }}</option>
+                        </select>
+                        <mat-error *ngIf="this.mainForm.get('aeronaveId').invalid">Informe a aeronave</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Entrada</mat-label>
+                        <input matInput required formControlName="dataEntrada" type="date">
+                        <mat-error *ngIf="this.mainForm.get('dataEntrada').invalid">Informe a data de entrada</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Local</mat-label>
+                        <input matInput required formControlName="local">
+                        <mat-error *ngIf="this.mainForm.get('local').invalid">Informe o local</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Responsável</mat-label>
+                        <input matInput formControlName="responsavel">
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Saída</mat-label>
+                        <input matInput formControlName="dataSaida" type="date">
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Itens"> 
+                <!-- DRENOS - COMANDOS - ESQUIS - JANELAS - CAPOTAS -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Drenos</mat-label>
+                        <select matNativeControl formControlName="drenos">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Comandos</mat-label>
+                        <select matNativeControl formControlName="comandos">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Esquis e Flutuadores</mat-label>
+                        <select matNativeControl formControlName="esquisFlutuadores">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Janelas e Para-Brisa</mat-label>
+                        <select matNativeControl formControlName="janelaParaBrisa">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Capotas do Motor</mat-label>
+                        <select matNativeControl formControlName="capotasMotor">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+                </div>
+
+                <!-- ESTOFAMENTO - PINTURA - FIACAO - MANGUEIRA - LUZES -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Estofamento e Cintos</mat-label>
+                        <select matNativeControl formControlName="estofamentoCintosSeguranca">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Pintura</mat-label>
+                        <select matNativeControl formControlName="pintura">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Fiação</mat-label>
+                        <select matNativeControl formControlName="fiacao">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Mangueira e Tubulação</mat-label>
+                        <select matNativeControl formControlName="mangueiraTubulacao">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Luzes e Faróis</mat-label>
+                        <select matNativeControl formControlName="luzesFarois">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+                </div>
+
+                <!-- RADIOS - ELT - BATERIA - EXTINTORES - PRIMEIROS SOCORROS -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Rádios e Instrumentos</mat-label>
+                        <select matNativeControl formControlName="radiosInstrumentos">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>ELT</mat-label>
+                        <select matNativeControl formControlName="elt">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Bateria</mat-label>
+                        <select matNativeControl formControlName="bateria">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Extintores</mat-label>
+                        <select matNativeControl formControlName="extintores">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Kit Primeiros Socorros</mat-label>
+                        <select matNativeControl formControlName="kitPrimeirosSocorros">
+                            <option value=1>Conforme</option>
+                            <option value=2>Não Conforme</option>
+                            <option value=3>Não Aplicável</option>
+                          </select>
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+    </form>
+
+</div>

@@ -1,0 +1,214 @@
+<app-contrato-edit *ngIf="isEdit" (close)="onCloseDetail($event)" [id]="selectedId"></app-contrato-edit>
+
+<div *ngIf="!isEdit" class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Contratos</div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Filter button -->
+            <button mat-icon-button aria-label="Show/hide filters" (click)="onFilterExpanded()">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <!-- Add product button -->
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="add()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Novo</span>
+            </button>
+            <button class="ml-2" mat-flat-button [color]="'accent'" (click)="openDialogExcel()">
+                <span class="ml-2 mr-1">EXCEL</span>
+            </button>
+            <button class="ml-2" mat-flat-button [color]="'accent'" (click)="openDialogPdf()">
+                <span class="ml-2 mr-1">PDF</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div>
+        <mat-expansion-panel hideToggle [expanded]="filtersExpanded">
+            <!-- <p>Filtros</p> -->
+
+            <form [formGroup]="filterForm" class="flex flex-row items-center gap-3 mt-6 overflow-hidden">
+
+                <mat-form-field>
+                    <mat-label>Código</mat-label>
+                    <input matInput formControlName="codigo">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Contratante</mat-label>
+                    <input matInput formControlName="contratante">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Local</mat-label>
+                    <input matInput formControlName="local">
+                </mat-form-field>
+
+                <button mat-raised-button (click)="clearFilter()">
+                    <!-- <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon> -->
+                    <span class="ml-2 mr-1">Limpar</span>
+                </button>
+
+                <button mat-raised-button [color]="'primary'" (click)="filter()">
+                    <!-- <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon> -->
+                    <span class="ml-2 mr-1">Buscar</span>
+                </button>
+
+            </form>
+
+
+        </mat-expansion-panel>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden">
+
+            <ng-container *ngIf="contratos.length > 0; else noProducts">
+
+                <!-- Table wrapper -->
+                <div class="overflow-x-auto sm:overflow-y-auto" cdkScrollable>
+
+                    <!-- Table -->
+                    <table class="w-full min-w-320 table-fixed bg-transparent"
+                        [ngClass]="{'pointer-events-none': isLoading}" mat-table matSort
+                        (matSortChange)="onSort($event)" [matSortActive]="'codigo'" [matSortDisableClear]="true"
+                        [matSortDirection]="'asc'" [multiTemplateDataRows]="false" [dataSource]="contratos"
+                        [trackBy]="trackByFn">
+
+                        <!-- codigo -->
+                        <ng-container matColumnDef="codigo">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Código
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.codigo}}
+                            </td>
+                        </ng-container>
+
+                        <!-- contratante -->
+                        <ng-container matColumnDef="contratante">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Contratante
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.contratante}}
+                            </td>
+                        </ng-container>
+
+                        <!-- local -->
+                        <ng-container matColumnDef="local">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Local
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.local}}
+                            </td>
+                        </ng-container>
+
+                        <!-- inicio -->
+                        <ng-container matColumnDef="inicio">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Início
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.inicio | date: 'dd/MM/yyyy'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- termino -->
+                        <ng-container matColumnDef="termino">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Término
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.termino | date: 'dd/MM/yyyy'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- valor -->
+                        <ng-container matColumnDef="valor">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Valor
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.valor | currency}}
+                            </td>
+                        </ng-container>
+
+                        <!-- ativo -->
+                        <ng-container matColumnDef="ativo">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Ativo
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.ativo | ativoBoolean}}
+                            </td>
+                        </ng-container>
+
+                        <!-- actions -->
+                        <ng-container matColumnDef="actions">
+                            <th class="w-24 pr-8 bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell
+                                *matHeaderCellDef>
+                                Ações
+                            </th>
+                            <td class="pr-8" mat-cell *matCellDef="let row">
+                                <div class="flex flex-row">
+                                    <button mat-icon-button (click)="edit(row.id)">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button (click)="delete(row.id)">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr class="shadow" mat-header-row *matHeaderRowDef="productsTableColumns; sticky: true"></tr>
+                        <tr class="h-18 hover:bg-hover" mat-row *matRowDef="let row; columns: productsTableColumns;">
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <mat-paginator
+                    class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+                    [ngClass]="{'pointer-events-none': isLoading}" [length]="pagination.length"
+                    [pageIndex]="pagination.page" [pageSize]="pagination.size" [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                    [showFirstLastButtons]="true" (page)="onPage($event)"></mat-paginator>
+
+            </ng-container>
+
+            <ng-template #noProducts>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">Não há contratos!
+                </div>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</div>

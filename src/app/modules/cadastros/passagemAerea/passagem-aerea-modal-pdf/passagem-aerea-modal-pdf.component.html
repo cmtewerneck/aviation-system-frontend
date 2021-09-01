@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Filtros Extras</h1>
+<div mat-dialog-content>
+  <p>Gostaria de filtrar pelo tripulante?</p><br>
+  <mat-form-field appearance="fill">
+    <input matInput [(ngModel)]="tripulante">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button [color]="'warn-400'" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button [color]="'accent'" (click)="exportToPdf()" cdkFocusInitial>Exportar</button>
+</div>

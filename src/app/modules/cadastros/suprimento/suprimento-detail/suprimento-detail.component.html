@@ -1,0 +1,87 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        Detalhes
+    </div>
+    
+    <!-- Return -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['/suprimentos']">
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="flex flex-col p-8 overflow-hidden">
+
+    <fuse-card class="flex flex-col lg:flex-row max-w-sm lg:max-w-240 filter-pricing">
+        <div class="p-6 sm:p-8 lg:p-10">
+            <div class="text-3xl font-bold">{{ suprimento.nomenclatura }}</div>
+            <!-- <div class="mt-2 leading-relaxed text-secondary">
+                Learn from like-minded individuals which are eager to make a living building stuff on the web. Pay once and get lifetime access to the community.
+            </div> -->
+            <div class="flex items-center mt-10">
+                <div class="font-medium text-secondary">ESPECIFICAÇÕES</div>
+                <div class="flex-auto ml-2 border-b-2"></div>
+            </div>
+            <!-- Features -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-6">
+                <div class="flex items-center">
+                    <mat-icon
+                        class="icon-size-5 text-primary"
+                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                    <div class="ml-2">Private forum access</div>
+                </div>
+                <div class="flex items-center">
+                    <mat-icon
+                        class="icon-size-5 text-primary"
+                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                    <div class="ml-2">Access to annual online conference</div>
+                </div>
+                <div class="flex items-center">
+                    <mat-icon
+                        class="icon-size-5 text-primary"
+                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                    <div class="ml-2">Member resources</div>
+                </div>
+                <div class="flex items-center">
+                    <mat-icon
+                        class="icon-size-5 text-primary"
+                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                    <div class="ml-2">Official member T-Shirt</div>
+                </div>
+            </div>
+        </div>
+        <!-- Price -->
+        <div class="flex flex-col items-center p-8 lg:px-10 lg:py-12 lg:min-w-80 bg-gray-100 dark:bg-black dark:bg-opacity-10">
+            <div class="flex items-center whitespace-nowrap">
+                <div class="text-8xl font-extrabold tracking-tight">$599</div>
+                <div class="ml-2 text-2xl font-semibold text-secondary">USD</div>
+            </div>
+            <!-- <div class="font-medium text-center text-secondary">
+                <div>No monthly subscription,</div>
+                <div>you only pay once.</div>
+            </div> -->
+            <button
+                class="w-full mt-8 lg:mt-auto"
+                mat-flat-button
+                [color]="'primary'">
+                Alterar Imagem  
+            </button>
+        </div>
+    </fuse-card>
+
+</div>
+
+</div>

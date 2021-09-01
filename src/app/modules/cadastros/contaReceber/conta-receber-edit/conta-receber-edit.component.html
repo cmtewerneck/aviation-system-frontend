@@ -1,0 +1,82 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Conta" : "Nova Conta" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+        <!-- DESCRICAO - VALOR RECEBER - VALOR RECEBIDO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Descrição</mat-label>
+                <input matInput required formControlName="descricao">
+                <mat-error *ngIf="this.mainForm.get('descricao').invalid">Informe a descrição</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Valor a Receber</mat-label>
+                <input matInput required formControlName="valorReceber" prefix="R$ " mask="separator.2" thousandSeparator=".">
+                <mat-error *ngIf="this.mainForm.get('valorReceber').invalid">Informe o valor a receber</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Valor Recebido</mat-label>
+                <input matInput formControlName="valorRecebido" prefix="R$ " mask="separator.2" thousandSeparator=".">
+            </mat-form-field>
+        </div>
+
+        <!-- DATA RECEBIMENTO - FORMA PAGAMENTO - SITUACAO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Data do Recebimento</mat-label>
+                <input matInput formControlName="dataRecebimento" type="date">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Forma de Pagamento</mat-label>
+                <select matNativeControl formControlName="formaPagamento">
+                    <option value=1>Dinheiro</option>
+                    <option value=2>Cartão</option>
+                    <option value=3>Boleto</option>
+                    <option value=4>PIX</option>
+                    <option value=5>Transferência</option>
+                  </select>
+                <mat-error *ngIf="this.mainForm.get('formaPagamento').invalid">Informe a forma de pagamento</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Situação</mat-label>
+                <select matNativeControl formControlName="situacao">
+                    <option value=true>Pago</option>
+                    <option value=false>Não Pago</option>
+                  </select>
+                <mat-error *ngIf="this.mainForm.get('situacao').invalid">Informe a situação do pagamento</mat-error>
+            </mat-form-field>
+        </div>
+        
+    </form>
+</div>

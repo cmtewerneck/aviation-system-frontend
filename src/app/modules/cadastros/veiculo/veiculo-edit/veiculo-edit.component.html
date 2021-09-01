@@ -1,0 +1,97 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        {{id ? "Editar Veículo" : "Novo Veículo" }}
+    </div>
+    
+    <!-- Actions -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+            <span class="ml-2 mr-1">Salvar</span>
+        </button>
+    </div>
+</div>
+
+<!-- Main -->
+
+<form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+    
+    <!-- PLACA - UF PLACA - ANO - PROPRIO -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Placa</mat-label>
+            <input matInput formControlName="placa" mask="AAA-AAAA">
+            <mat-error *ngIf="this.mainForm.get('placa').invalid">Informe a placa</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>UF</mat-label>
+            <input matInput formControlName="ufPlaca">
+            <mat-error *ngIf="this.mainForm.get('ufPlaca').invalid">Informe a uf da placa</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Ano</mat-label>
+            <input matInput formControlName="ano" type="number">
+            <mat-error *ngIf="this.mainForm.get('ano').invalid">Informe o ano</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Próprio</mat-label>
+            <select matNativeControl required formControlName="proprio">
+                <option value=true>Sim</option>
+                <option value=false>Não</option>
+            </select>
+            <mat-error *ngIf="this.mainForm.get('proprio').invalid">Informe a situação do carro</mat-error>
+        </mat-form-field>        
+    </div>
+    
+    <!-- KM ATUAL - MODELO - RENAVAM - COMBUSTIVEL -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Km Atual</mat-label>
+            <input matInput formControlName="kmAtual" mask="separator.0" thousandSeparator=".">
+            <mat-error *ngIf="this.mainForm.get('kmAtual').invalid">Informe o km atual</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="modelo">
+            <mat-error *ngIf="this.mainForm.get('modelo').invalid">Informe o modelo</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Renavam</mat-label>
+            <input matInput formControlName="renavam">
+            <mat-error *ngIf="this.mainForm.get('renavam').invalid">Informe o renavam</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Combustível</mat-label>
+            <select matNativeControl required formControlName="tipoCombustivel">
+                <option value=1>Gasolina</option>
+                <option value=2>Álcool</option>
+                <option value=3>Diesel</option>
+                <option value=4>Flex</option>
+                <option value=5>Elétrico</option>
+            </select>
+            <mat-error *ngIf="this.mainForm.get('tipoCombustivel').invalid">Informe o combustível</mat-error>
+        </mat-form-field>
+    </div>
+    
+</form>
+
+</div>

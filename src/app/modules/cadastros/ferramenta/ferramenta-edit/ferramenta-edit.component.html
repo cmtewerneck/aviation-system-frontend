@@ -1,0 +1,82 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Ferramenta" : "Nova Ferramenta" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+        <!-- PARTNUMBER - NOMENCLATURA - QUANTIDADE - LOCALIZACAO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Part Number</mat-label>
+                <input matInput required formControlName="partNumber">
+                <mat-error *ngIf="this.mainForm.get('partNumber').invalid">Informe o part number</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Nomenclatura</mat-label>
+                <input matInput required formControlName="nomenclatura">
+                <mat-error *ngIf="this.mainForm.get('nomenclatura').invalid">Informe a nomenclatura</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Quantidade</mat-label>
+                <input matInput required formControlName="quantidade" type="number">
+                <mat-error *ngIf="this.mainForm.get('quantidade').invalid">Informe a quantidade</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Localização</mat-label>
+                <input matInput required formControlName="localizacao">
+            </mat-form-field>
+        </div>
+
+        <!-- AFERIVEL - ULTIMA AFERICAO - PROXIMA AFERICAO -->
+        <div class="flex flex-row">
+            <mat-form-field class="flex-1">
+                <mat-label>Aferível</mat-label>
+                <select matNativeControl required formControlName="aferivel">
+                    <option value=true>Sim</option>
+                    <option value=false>Não</option>
+                </select>
+                <mat-error *ngIf="this.mainForm.get('aferivel').invalid">Informe se a ferramenta é aferível</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Última Aferição</mat-label>
+                <input matInput formControlName="ultimaAfericao" type="date">
+            </mat-form-field>
+
+            <mat-form-field class="flex-1 ml-2">
+                <mat-label>Próxima Aferição</mat-label>
+                <input matInput formControlName="proximaAfericao" type="date">
+            </mat-form-field>
+        </div>      
+
+    </form>
+
+</div>

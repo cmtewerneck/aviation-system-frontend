@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Filtros Extras</h1>
+<div mat-dialog-content>
+  <p>Gostaria de filtrar pelo tipo de combustível?</p><br>
+  <mat-form-field appearance="fill">
+    <!-- <input matInput [(ngModel)]="tipoCombustivel"> -->
+    <select matNativeControl [(ngModel)]="tipoCombustivel">
+      <option value=1>Gasolina</option>
+      <option value=2>Álcool</option>
+      <option value=3>Diesel</option>
+      <option value=4>Flex</option>
+      <option value=5>Elétrico</option>
+      <option value=null>Todos</option>
+    </select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button [color]="'warn-400'" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button [color]="'accent'" (click)="exportToPdf()" cdkFocusInitial>Exportar</button>
+</div>

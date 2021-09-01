@@ -1,0 +1,120 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar ISE" : "Nova ISE" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col overflow-y-scroll overflow-x-hidden p-8">
+        <mat-tab-group>
+            <mat-tab label="Dados da Isenção"> 
+                <!-- DATA - RESPONSAVEL - CANAC -->
+                <div class="flex flex-row">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Data de Criação</mat-label>
+                        <input matInput required formControlName="dataCriacao" type="date">
+                        <mat-error *ngIf="this.mainForm.get('dataCriacao').invalid">Informe a data</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Responsável</mat-label>
+                        <input matInput required formControlName="responsavel">
+                        <mat-error *ngIf="this.mainForm.get('responsavel').invalid">Informe o responsável</mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>CANAC</mat-label>
+                        <input matInput required formControlName="canac">
+                        <mat-error *ngIf="this.mainForm.get('canac').invalid">Informe o CANAC</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="flex-1 ml-2">
+                        <mat-label>Data de Envio</mat-label>
+                        <input matInput formControlName="dataEnvio" type="date">
+                    </mat-form-field>
+                </div>          
+            </mat-tab>
+
+            <mat-tab label="Itens"> 
+                <!-- ITENS ISE FORM ARRAY -->
+                <ng-container formArrayName="itensIse" *ngFor="let itemIse of itensIseArray.controls; let i = index">
+                    <ng-container [formGroupName]="i">
+                        <div class="flex flex-row">
+                            <mat-form-field class="flex-1">
+                                <mat-label>Tipo da Isenção</mat-label>
+                                <select matNativeControl required formControlName="tipoIsencao">
+                                    <option value=1>Voo de Instrução</option>
+                                    <option value=2>Voo de Experiência</option>
+                                    <option value=3>Voo de Retorno</option>
+                                  </select>
+                                <mat-error *ngIf="this.itemIse.get('tipoIsencao').invalid">Informe o tipo da isenção</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Matrícula</mat-label>
+                                <select matNativeControl id="aeronaveId" required formControlName="aeronaveId">
+                                    <option *ngFor="let aeronave of aeronaves" value="{{aeronave.id}}">{{ aeronave.matricula }}</option>
+                                </select>
+                                <mat-error *ngIf="this.itemIse.get('aeronaveId').invalid">Informe a aeronave</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Origem</mat-label>
+                                <input matInput required formControlName="origem">
+                                <mat-error *ngIf="this.itemIse.get('origem').invalid">Informe a origem</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Data e Hora</mat-label>
+                                <input matInput required formControlName="dataHora" type="datetime-local">
+                                <mat-error *ngIf="this.itemIse.get('dataHora').invalid">Informe a data e hora da decolagem</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="flex-1 ml-2">
+                                <mat-label>Status</mat-label>
+                                <select matNativeControl required formControlName="status">
+                                    <option value=1>Isento</option>
+                                    <option value=2>Pendente</option>
+                                  </select>
+                                <mat-error *ngIf="this.itemIse.get('status').invalid">Informe o status da isenção</mat-error>
+                            </mat-form-field>
+
+                            <button mat-mini-fab class="ml-3 mt-7" [color]="'warn'" (click)="removerItemIse(i)">
+                                <mat-icon class="delete-btn">delete_forever</mat-icon>
+                            </button>
+                        </div>
+        
+                    </ng-container>
+                </ng-container>
+        
+                <button mat-mini-fab (click)="adicionarItemIse()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+            </mat-tab>
+        </mat-tab-group>       
+
+    </form>
+
+</div>

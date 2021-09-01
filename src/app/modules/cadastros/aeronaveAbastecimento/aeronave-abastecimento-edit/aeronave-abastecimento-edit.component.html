@@ -1,0 +1,103 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">
+            {{id ? "Editar Abastecimento" : "Nova Abastecimento" }}
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="cancel()">
+                <span class="ml-2 mr-1">Cancelar</span>
+            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="save()">
+                <span class="ml-2 mr-1">Salvar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+    <form [formGroup]="mainForm" class="flex flex-col p-8 overflow-hidden">
+
+    <!-- DATA - AERONAVE - LITROS - LOCAL - CUPOM -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Data</mat-label>
+            <input matInput formControlName="data" type="date">
+            <mat-error *ngIf="this.mainForm.get('data').invalid">Informe a Data</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Matrícula</mat-label>
+            <select matNativeControl id="aeronaveId" required formControlName="aeronaveId">
+                <option *ngFor="let aeronave of aeronaves" value="{{aeronave.id}}">{{ aeronave.matricula }}</option>
+            </select>
+            <mat-error *ngIf="this.mainForm.get('aeronaveId').invalid">Informe a aeronave</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Litros</mat-label>
+            <input matInput formControlName="litros" type="number">
+            <span matSuffix>L</span>
+            <mat-error *ngIf="this.mainForm.get('litros').invalid">Informe quantos litros</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Local</mat-label>
+            <input matInput formControlName="local">
+            <mat-error *ngIf="this.mainForm.get('local').invalid">Informe o local</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Cupom</mat-label>
+            <input matInput formControlName="cupom">
+            <mat-error *ngIf="this.mainForm.get('cupom').invalid">Informe o cupom</mat-error>
+        </mat-form-field>
+    </div>
+
+    <!-- NOTA FISCAL - FORNECEDORA - RESPONSAVEL - VALOR -->
+    <div class="flex flex-row">
+        <mat-form-field class="flex-1">
+            <mat-label>Nota Fiscal</mat-label>
+            <input matInput formControlName="notaFiscal">
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Fornecedora</mat-label>
+            <input matInput formControlName="fornecedora">
+            <mat-error *ngIf="this.mainForm.get('fornecedora').invalid">Informe a fornecedora</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Responsável</mat-label>
+            <input matInput formControlName="responsavel">
+            <mat-error *ngIf="this.mainForm.get('responsavel').invalid">Informe o responsável</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex-1 ml-2">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="valor" prefix="R$ " mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+    </div>
+
+    <!-- OBSERVACOES -->
+    <div class="flex flex-col">
+        <mat-form-field>
+                <mat-label>Observações</mat-label>
+                <input matInput formControlName="observacoes">
+        </mat-form-field>
+    </div>
+
+    </form>
+
+</div>
