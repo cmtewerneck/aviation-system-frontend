@@ -12,6 +12,7 @@ import { Rastreador } from '../rastreador.model';
 import { RastreadorService } from '../rastreador.service';
 import { RastreadorModalExcelComponent } from '../rastreador-modal-excel/rastreador-modal-excel.component';
 import { RastreadorModalPdfComponent } from '../rastreador-modal-pdf/rastreador-modal-pdf.component';
+import { RastreadorModalExcluirComponent } from '../rastreador-modal-excluir/rastreador-modal-excluir.component';
 
 @Component({
     selector: 'app-rastreador-list',
@@ -182,6 +183,18 @@ export class RastreadorListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(RastreadorModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

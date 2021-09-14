@@ -27,4 +27,19 @@ export class AgendamentoService extends BaseApiService<Agendamento>
         return this.http
             .get<CategoriaVoo[]>('https://localhost:44335/api/categorias-voo');
     }
+
+    exportToExcel(matricula: string) {
+        return this.http
+            .get('https://localhost:44335/api/agendamentos/export-to-excel/' + matricula);
+    }
+
+    exportToPdf(matricula: string) {
+        return this.http
+            .get('https://localhost:44335/api/agendamentos/export-to-pdf/' + matricula);
+    }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/agendamentos/export-item-to-pdf/' + id);
+    }
 }

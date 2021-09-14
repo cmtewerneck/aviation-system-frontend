@@ -22,4 +22,9 @@ export class SuprimentoService extends BaseApiService<Suprimento>
         return this.http
             .get('https://localhost:44335/api/suprimentos/export-to-pdf/' + localizacao);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/suprimentos/export-item-to-pdf/' + id);
+    }
 }

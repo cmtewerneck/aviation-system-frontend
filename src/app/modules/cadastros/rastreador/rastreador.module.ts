@@ -21,11 +21,16 @@ import { RastreadorListComponent } from './rastreador-list/rastreador-list.compo
 import { NgxMaskModule } from 'ngx-mask';
 import { RastreadorModalExcelComponent } from './rastreador-modal-excel/rastreador-modal-excel.component';
 import { RastreadorModalPdfComponent } from './rastreador-modal-pdf/rastreador-modal-pdf.component';
+import { RastreadorDetailComponent } from './rastreador-detail/rastreador-detail.component';
+import { RastreadorModalExcluirComponent } from './rastreador-modal-excluir/rastreador-modal-excluir.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const rastreadorRoutes: Route[] = [
     {
-        path: '',
-        component: RastreadorListComponent
+        path: '', component: RastreadorListComponent
+    },
+    {
+        path: 'details/:id', component: RastreadorDetailComponent
     }
 ];
 
@@ -34,6 +39,8 @@ const rastreadorRoutes: Route[] = [
         RastreadorListComponent,
         RastreadorEditComponent,
         RastreadorModalPdfComponent,
+        RastreadorDetailComponent,
+        RastreadorModalExcluirComponent,
         RastreadorModalExcelComponent
     ],
     imports: [
@@ -54,6 +61,7 @@ const rastreadorRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

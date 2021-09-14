@@ -19,18 +19,29 @@ import { SharedModule } from 'app/shared/shared.module';
 import { AgendamentoEditComponent } from './agendamento-edit/agendamento-edit.component';
 import { AgendamentoListComponent } from './agendamento-list/agendamento-list.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { AgendamentoModalPdfComponent } from './agendamento-modal-pdf/agendamento-modal-pdf.component';
+import { AgendamentoModalExcelComponent } from './agendamento-modal-excel/agendamento-modal-excel.component';
+import { AgendamentoModalExcluirComponent } from './agendamento-modal-excluir/agendamento-modal-excluir.component';
+import { AgendamentoDetailComponent } from './agendamento-detail/agendamento-detail.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const agendamentoRoutes: Route[] = [
     {
-        path: '',
-        component: AgendamentoListComponent
+        path: '', component: AgendamentoListComponent
+    },
+    {
+        path: 'details/:id', component: AgendamentoDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         AgendamentoListComponent,
-        AgendamentoEditComponent
+        AgendamentoEditComponent,
+        AgendamentoModalExcelComponent,
+        AgendamentoModalExcluirComponent,
+        AgendamentoDetailComponent,
+        AgendamentoModalPdfComponent
     ],
     imports: [
         RouterModule.forChild(agendamentoRoutes),
@@ -50,6 +61,7 @@ const agendamentoRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

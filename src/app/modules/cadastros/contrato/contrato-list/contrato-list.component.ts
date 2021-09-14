@@ -12,6 +12,7 @@ import { Contrato } from '../contrato.model';
 import { ContratoService } from '../contrato.service';
 import { ContratoModalExcelComponent } from '../contrato-modal-excel/contrato-modal-excel.component';
 import { ContratoModalPdfComponent } from '../contrato-modal-pdf/contrato-modal-pdf.component';
+import { ContratoModalExcluirComponent } from '../contrato-modal-excluir/contrato-modal-excluir.component';
 
 @Component({
     selector: 'app-contrato-list',
@@ -188,6 +189,18 @@ export class ContratoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(ContratoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

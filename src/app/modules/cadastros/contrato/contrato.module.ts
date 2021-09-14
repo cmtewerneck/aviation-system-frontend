@@ -22,11 +22,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgxMaskModule } from 'ngx-mask';
 import { ContratoModalExcelComponent } from './contrato-modal-excel/contrato-modal-excel.component';
 import { ContratoModalPdfComponent } from './contrato-modal-pdf/contrato-modal-pdf.component';
+import { ContratoDetailComponent } from './contrato-detail/contrato-detail.component';
+import { ContratoModalExcluirComponent } from './contrato-modal-excluir/contrato-modal-excluir.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const contratoRoutes: Route[] = [
     {
-        path: '',
-        component: ContratoListComponent
+        path: '', component: ContratoListComponent
+    },
+    {
+        path: 'details/:id', component: ContratoDetailComponent
     }
 ];
 
@@ -34,7 +39,9 @@ const contratoRoutes: Route[] = [
     declarations: [
         ContratoListComponent,
         ContratoEditComponent,
+        ContratoDetailComponent,
         ContratoModalExcelComponent,
+        ContratoModalExcluirComponent,
         ContratoModalPdfComponent
     ],
     imports: [
@@ -56,6 +63,7 @@ const contratoRoutes: Route[] = [
         MatExpansionModule,
         MatTabsModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

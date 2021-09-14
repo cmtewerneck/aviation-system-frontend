@@ -29,4 +29,9 @@ export class AeronaveTarifaService extends BaseApiService<AeronaveTarifa>
         return this.http
             .get('https://localhost:44335/api/aeronaves/tarifas/export-to-pdf/' + matricula);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/aeronaves/tarifas/export-item-to-pdf/' + id);
+    }
 }

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FieldTypeEnum } from 'app/shared/enums/fieldType.enum';
@@ -8,6 +9,9 @@ import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
 import { Subject } from 'rxjs';
+import { AgendamentoModalExcelComponent } from '../agendamento-modal-excel/agendamento-modal-excel.component';
+import { AgendamentoModalExcluirComponent } from '../agendamento-modal-excluir/agendamento-modal-excluir.component';
+import { AgendamentoModalPdfComponent } from '../agendamento-modal-pdf/agendamento-modal-pdf.component';
 import { Agendamento } from '../agendamento.model';
 import { AgendamentoService } from '../agendamento.service';
 
@@ -47,7 +51,8 @@ export class AgendamentoListComponent implements OnInit, OnDestroy {
 
     constructor(
         private _agendamentoService: AgendamentoService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        public dialog: MatDialog
     ) {
     }
 
@@ -166,5 +171,37 @@ export class AgendamentoListComponent implements OnInit, OnDestroy {
 
     clearFilter() {
         this.filterForm.reset();
+    }
+
+    openDialogExcel(): void {
+        const dialogRef = this.dialog.open(AgendamentoModalExcelComponent, {
+          width: '500px',
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+    }
+
+    openDialogPdf(): void {
+        const dialogRef = this.dialog.open(AgendamentoModalPdfComponent, {
+          width: '500px',
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(AgendamentoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
+        });
     }
 }

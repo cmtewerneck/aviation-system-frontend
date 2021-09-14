@@ -8,5 +8,6 @@ export interface Ferramenta extends Entity {
     ultimaAfericao?: Date;
     proximaAfericao?: Date;
     imagem: string;
+    imagemUpload: string;
     localizacao: string;
 }

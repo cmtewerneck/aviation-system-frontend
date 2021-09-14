@@ -25,6 +25,12 @@
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Novo</span>
             </button>
+            <button class="ml-2" mat-flat-button [color]="'accent'" (click)="exportToExcel()">
+                <span class="ml-2 mr-1">EXCEL</span>
+            </button>
+            <button class="ml-2" mat-flat-button [color]="'accent'" (click)="exportToPdf()">
+                <span class="ml-2 mr-1">PDF</span>
+            </button>
         </div>
     </div>
 
@@ -109,11 +115,15 @@
                             </th>
                             <td class="pr-8" mat-cell *matCellDef="let row">
                                 <div class="flex flex-row">
+                                    <button mat-icon-button [routerLink]="['/categorias-voo/details',row.id]">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                    </button>
+
                                     <button mat-icon-button (click)="edit(row.id)">
                                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
                                     </button>
 
-                                    <button mat-icon-button (click)="delete(row.id)">
+                                    <button mat-icon-button (click)="openDialogDelete(row.id)">
                                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
                                     </button>
                                 </div>

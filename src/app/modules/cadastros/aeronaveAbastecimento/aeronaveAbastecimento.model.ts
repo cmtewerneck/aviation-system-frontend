@@ -11,5 +11,6 @@ export interface AeronaveAbastecimento extends Entity {
     valor?: number;
     observacoes: string;
     comprovante: string;
+    comprovanteUpload: string;
     aeronaveId: string;
 }

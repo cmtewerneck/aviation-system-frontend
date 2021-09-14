@@ -22,4 +22,9 @@ export class CategoriaTreinamentoService extends BaseApiService<CategoriaTreinam
         return this.http
             .get('https://localhost:44335/api/categorias-treinamento/export-to-pdf/' + tipoTreinamento);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/categorias-treinamento/export-item-to-pdf/' + id);
+    }
 }

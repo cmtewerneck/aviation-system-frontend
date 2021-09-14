@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DecimalUtils } from 'app/shared/helpers/decimal-utils';
+import { ImageCroppedEvent, ImageTransform, Dimensions } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { Aeronave } from '../../aeronave/aeronave.model';
 import { AeronaveAbastecimentoService } from '../aeronaveAbastecimento.service';
@@ -15,6 +16,19 @@ import { AeronaveAbastecimentoService } from '../aeronaveAbastecimento.service';
 
 export class AeronaveAbastecimentoEditComponent implements OnInit, OnDestroy {
 
+    // VARIÁVEIS PARA IMAGEM
+    imageChangedEvent: any = '';
+    containWithinAspectRatio = false;
+    canvasRotation = 0;
+    transform: ImageTransform = {};
+    showCropper = false;
+    croppedImage: any = '';
+    
+    comprovanteNome: string;
+    rotation = 0;
+    scale = 1;
+    // ----------------------------------
+    
     isLoading: boolean = false;
 
     aeronaves: Aeronave[];
@@ -73,6 +87,9 @@ export class AeronaveAbastecimentoEditComponent implements OnInit, OnDestroy {
 
         const model = this.mainForm.value;
 
+        model.comprovanteUpload = this.croppedImage.split(',')[1]; // TIRAR O HEADER DA IMAGEM EM BASE 64
+        model.comprovante = this.comprovanteNome;
+
         const $obs = this.id ? this._aeronaveAbastecimentoService.update(model) : this._aeronaveAbastecimentoService.insert(model);
 
         this.isLoading = true;
@@ -119,6 +136,27 @@ export class AeronaveAbastecimentoEditComponent implements OnInit, OnDestroy {
             else
                 this._toastr.error("- " + messages.join("<br>- "));
         }
+    }
+
+    fileChangeEvent(event: any): void {
+        this.imageChangedEvent = event;
+        this.comprovanteNome = event.currentTarget.files[0].name;
+    }
+
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64;
+    }
+      
+    imageLoaded() {
+        this.showCropper = true;
+    }
+    
+    cropperReady(sourceImageDimensions: Dimensions) {
+        console.log('Recorte realizado', sourceImageDimensions);
+    }
+    
+    loadImageFailed() {
+        console.log('Formato não aceito');
     }
 
 }

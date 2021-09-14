@@ -21,11 +21,16 @@ import { PassagemAereaListComponent } from './passagem-aerea-list/passagem-aerea
 import { NgxMaskModule } from 'ngx-mask';
 import { PassagemAereaModalPdfComponent } from './passagem-aerea-modal-pdf/passagem-aerea-modal-pdf.component';
 import { PassagemAereaModalExcelComponent } from './passagem-aerea-modal-excel/passagem-aerea-modal-excel.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { PassagemAereaDetailComponent } from './passagem-aerea-detail/passagem-aerea-detail.component';
+import { PassagemAereaModalExcluirComponent } from './passagem-aerea-modal-excluir/passagem-aerea-modal-excluir.component';
 
 const passagemAereaRoutes: Route[] = [
     {
-        path: '',
-        component: PassagemAereaListComponent
+        path: '', component: PassagemAereaListComponent
+    },
+    {
+        path: 'details/:id', component: PassagemAereaDetailComponent
     }
 ];
 
@@ -34,6 +39,8 @@ const passagemAereaRoutes: Route[] = [
         PassagemAereaListComponent,
         PassagemAereaEditComponent,
         PassagemAereaModalPdfComponent,
+        PassagemAereaDetailComponent,
+        PassagemAereaModalExcluirComponent,
         PassagemAereaModalExcelComponent
     ],
     imports: [
@@ -54,6 +61,7 @@ const passagemAereaRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

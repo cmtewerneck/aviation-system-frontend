@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     apiUrl: 'https://localhost:44335',
+    imagensUrl: 'https://localhost:44335/images/'
     // toastrConfig: {
     //     timeOut: 3000,
     //     progressBar: true,

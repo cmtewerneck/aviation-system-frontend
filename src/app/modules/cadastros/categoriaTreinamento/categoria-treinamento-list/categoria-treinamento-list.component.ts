@@ -12,6 +12,7 @@ import { CategoriaTreinamento } from '../categoriaTreinamento.model';
 import { CategoriaTreinamentoService } from '../categoriaTreinamento.service';
 import { CategoriaTreinamentoModalExcelComponent } from '../categoria-treinamento-modal-excel/categoria-treinamento-modal-excel.component';
 import { CategoriaTreinamentoModalPdfComponent } from '../categoria-treinamento-modal-pdf/categoria-treinamento-modal-pdf.component';
+import { CategoriaTreinamentoModalExcluirComponent } from '../categoria-treinamento-modal-excluir/categoria-treinamento-modal-excluir.component';
 
 @Component({
     selector: 'app-categoria-treinamento-list',
@@ -181,6 +182,18 @@ export class CategoriaTreinamentoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(CategoriaTreinamentoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

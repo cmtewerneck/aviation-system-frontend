@@ -21,11 +21,17 @@ import { AeronaveAbastecimentoListComponent } from './aeronave-abastecimento-lis
 import { NgxMaskModule } from 'ngx-mask';
 import { AeronaveAbastecimentoModalPdfComponent } from './aeronave-abastecimento-modal-pdf/aeronave-abastecimento-modal-pdf.component';
 import { AeronaveAbastecimentoModalExcelComponent } from './aeronave-abastecimento-modal-excel/aeronave-abastecimento-modal-excel.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { AeronaveAbastecimentoDetailComponent } from './aeronave-abastecimento-detail/aeronave-abastecimento-detail.component';
+import { AeronaveAbastecimentoModalExcluirComponent } from './aeronave-abastecimento-modal-excluir/aeronave-abastecimento-modal-excluir.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 const aeronaveAbastecimentoRoutes: Route[] = [
     {
-        path: '',
-        component: AeronaveAbastecimentoListComponent
+        path: '', component: AeronaveAbastecimentoListComponent
+    },
+    {
+        path: 'details/:id', component: AeronaveAbastecimentoDetailComponent
     }
 ];
 
@@ -34,7 +40,9 @@ const aeronaveAbastecimentoRoutes: Route[] = [
         AeronaveAbastecimentoListComponent,
         AeronaveAbastecimentoEditComponent,
         AeronaveAbastecimentoModalPdfComponent,
-        AeronaveAbastecimentoModalExcelComponent
+        AeronaveAbastecimentoModalExcelComponent,
+        AeronaveAbastecimentoModalExcluirComponent,
+        AeronaveAbastecimentoDetailComponent
     ],
     imports: [
         RouterModule.forChild(aeronaveAbastecimentoRoutes),
@@ -54,6 +62,8 @@ const aeronaveAbastecimentoRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
+        ImageCropperModule,
         SharedModule
     ]
 })

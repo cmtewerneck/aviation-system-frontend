@@ -18,18 +18,25 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { ManualEmpresaEditComponent } from './manual-empresa-edit/manual-empresa-edit.component';
 import { ManualEmpresaListComponent } from './manual-empresa-list/manual-empresa-list.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { ManualEmpresaDetailComponent } from './manual-empresa-voo-detail/manual-empresa-detail.component';
+import { ManualEmpresaModalExcluirComponent } from './manual-empresa-modal-excluir/manual-empresa-modal-excluir.component';
 
 const manualEmpresaRoutes: Route[] = [
     {
-        path: '',
-        component: ManualEmpresaListComponent
+        path: '', component: ManualEmpresaListComponent
+    },
+    {
+        path: 'details/:id', component: ManualEmpresaDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         ManualEmpresaListComponent,
-        ManualEmpresaEditComponent
+        ManualEmpresaEditComponent,
+        ManualEmpresaDetailComponent,
+        ManualEmpresaModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(manualEmpresaRoutes),
@@ -48,6 +55,7 @@ const manualEmpresaRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

@@ -12,6 +12,7 @@ import { AeronaveAbastecimento } from '../aeronaveAbastecimento.model';
 import { AeronaveAbastecimentoService } from '../aeronaveAbastecimento.service';
 import { AeronaveAbastecimentoModalExcelComponent } from '../aeronave-abastecimento-modal-excel/aeronave-abastecimento-modal-excel.component';
 import { AeronaveAbastecimentoModalPdfComponent } from '../aeronave-abastecimento-modal-pdf/aeronave-abastecimento-modal-pdf.component';
+import { AeronaveAbastecimentoModalExcluirComponent } from '../aeronave-abastecimento-modal-excluir/aeronave-abastecimento-modal-excluir.component';
 
 @Component({
     selector: 'app-aeronave-abastecimento-list',
@@ -182,6 +183,18 @@ export class AeronaveAbastecimentoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(AeronaveAbastecimentoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

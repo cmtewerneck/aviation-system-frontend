@@ -22,4 +22,9 @@ export class ManualEmpresaService extends BaseApiService<ManualEmpresa>
         return this.http
             .get('https://localhost:44335/api/manuais-empresa/export-to-pdf');
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/manuais-empresa/export-item-to-pdf/' + id);
+    }
 }

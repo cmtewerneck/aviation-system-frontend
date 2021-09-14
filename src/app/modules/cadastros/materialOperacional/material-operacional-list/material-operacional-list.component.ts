@@ -12,6 +12,7 @@ import { MaterialOperacionalService } from '../materialOperacional.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MaterialOperacionalModalPdfComponent } from '../material-operacional-modal-pdf/material-operacional-modal-pdf.component';
 import { MaterialOperacionalModalExcelComponent } from '../material-operacional-modal-excel/material-operacional-modal-Excel.component';
+import { MaterialOperacionalModalExcluirComponent } from '../material-operacional-modal-excluir/material-operacional-modal-excluir.component';
 
 @Component({
     selector: 'app-material-operacional-list',
@@ -187,6 +188,18 @@ export class MaterialOperacionalListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(MaterialOperacionalModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

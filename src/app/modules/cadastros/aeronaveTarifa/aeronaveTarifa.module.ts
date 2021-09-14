@@ -21,11 +21,16 @@ import { AeronaveTarifaListComponent } from './aeronave-tarifa-list/aeronave-tar
 import { NgxMaskModule } from 'ngx-mask';
 import { AeronaveTarifaModalExcelComponent } from './aeronave-tarifa-modal-excel/aeronave-tarifa-modal-excel.component';
 import { AeronaveTarifaModalPdfComponent } from './aeronave-tarifa-modal-pdf/aeronave-tarifa-modal-pdf.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { AeronaveTarifaModalExcluirComponent } from './aeronave-tarifa-modal-excluir/aeronave-tarifa-modal-excluir.component';
+import { AeronaveTarifaDetailComponent } from './aeronave-tarifa-detail/aeronave-tarifa-detail.component';
 
 const aeronaveTarifaRoutes: Route[] = [
     {
-        path: '',
-        component: AeronaveTarifaListComponent
+        path: '', component: AeronaveTarifaListComponent
+    },
+    {
+        path: 'details/:id', component: AeronaveTarifaDetailComponent
     }
 ];
 
@@ -34,7 +39,9 @@ const aeronaveTarifaRoutes: Route[] = [
         AeronaveTarifaListComponent,
         AeronaveTarifaEditComponent,
         AeronaveTarifaModalPdfComponent,
-        AeronaveTarifaModalExcelComponent
+        AeronaveTarifaModalExcelComponent,
+        AeronaveTarifaModalExcluirComponent,
+        AeronaveTarifaDetailComponent
     ],
     imports: [
         RouterModule.forChild(aeronaveTarifaRoutes),
@@ -54,6 +61,7 @@ const aeronaveTarifaRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

@@ -22,4 +22,9 @@ export class FornecedorService extends BaseApiService<Fornecedor>
         return this.http
             .get('https://localhost:44335/api/fornecedores/export-to-pdf');
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/fornecedores/export-item-to-pdf/' + id);
+    }
 }

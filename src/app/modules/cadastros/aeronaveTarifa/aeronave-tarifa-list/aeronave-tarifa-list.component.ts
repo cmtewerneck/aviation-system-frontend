@@ -12,6 +12,7 @@ import { AeronaveTarifa } from '../aeronaveTarifa.model';
 import { AeronaveTarifaService } from '../aeronaveTarifa.service';
 import { AeronaveTarifaModalExcelComponent } from '../aeronave-tarifa-modal-excel/aeronave-tarifa-modal-excel.component';
 import { AeronaveTarifaModalPdfComponent } from '../aeronave-tarifa-modal-pdf/aeronave-tarifa-modal-pdf.component';
+import { AeronaveTarifaModalExcluirComponent } from '../aeronave-tarifa-modal-excluir/aeronave-tarifa-modal-excluir.component';
 
 @Component({
     selector: 'app-aeronave-tarifa-list',
@@ -178,6 +179,18 @@ export class AeronaveTarifaListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(AeronaveTarifaModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

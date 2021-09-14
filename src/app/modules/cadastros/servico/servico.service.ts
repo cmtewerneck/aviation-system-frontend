@@ -22,4 +22,9 @@ export class ServicoService extends BaseApiService<Servico>
         return this.http
             .get('https://localhost:44335/api/servicos/export-to-pdf/');
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/servicos/export-item-to-pdf/' + id);
+    }
 }

@@ -22,6 +22,7 @@ export class SuprimentoDetailComponent implements OnInit {
                 }
 
     suprimento: Suprimento;
+    suprimentos: Suprimento[] = [];
 
     ngOnInit(){
         this.isLoading = true;
@@ -31,6 +32,14 @@ export class SuprimentoDetailComponent implements OnInit {
         }, error => {
             console.log(error);
             this.isLoading = false;
+        });
+    }
+
+    exportToPdf() {
+        this.suprimentoService.exportItemToPdf(this.suprimentoId).subscribe(res => {
+            console.log(res);
+        }, error => {
+            console.log(error);
         });
     }
 }

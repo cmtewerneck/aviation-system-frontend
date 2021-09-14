@@ -19,18 +19,25 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ServicoEditComponent } from './servico-edit/servico-edit.component';
 import { ServicoListComponent } from './servico-list/servico-list.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FuseCardModule } from '@fuse/components/card';
+import { ServicoDetailComponent } from './servico-detail/servico-detail.component';
+import { ServicoModalExcluirComponent } from './servico-modal-excluir/servico-modal-excluir.component';
 
 const servicoRoutes: Route[] = [
     {
-        path: '',
-        component: ServicoListComponent
+        path: '', component: ServicoListComponent
+    },
+    {
+        path: 'details/:id', component: ServicoDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         ServicoListComponent,
-        ServicoEditComponent
+        ServicoEditComponent,
+        ServicoDetailComponent,
+        ServicoModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(servicoRoutes),
@@ -50,6 +57,7 @@ const servicoRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

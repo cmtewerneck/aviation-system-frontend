@@ -20,11 +20,17 @@ import { FerramentaEditComponent } from './ferramenta-edit/ferramenta-edit.compo
 import { FerramentaListComponent } from './ferramenta-list/ferramenta-list.component';
 import { FerramentaModalExcelComponent } from './ferramenta-modal-excel/ferramenta-modal-excel.component';
 import { FerramentaModalPdfComponent } from './ferramenta-modal-pdf/ferramenta-modal-pdf.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { FerramentaModalExcluirComponent } from './ferramenta-modal-excluir/ferramenta-modal-excluir.component';
+import { FerramentaDetailComponent } from './ferramenta-detail/ferramenta-detail.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 const ferramentaRoutes: Route[] = [
     {
-        path: '',
-        component: FerramentaListComponent
+        path: '', component: FerramentaListComponent
+    },
+    {
+        path: 'details/:id', component: FerramentaDetailComponent
     }
 ];
 
@@ -33,7 +39,9 @@ const ferramentaRoutes: Route[] = [
         FerramentaListComponent,
         FerramentaEditComponent,
         FerramentaModalPdfComponent,
-        FerramentaModalExcelComponent
+        FerramentaModalExcelComponent,
+        FerramentaModalExcluirComponent,
+        FerramentaDetailComponent,
     ],
     imports: [
         RouterModule.forChild(ferramentaRoutes),
@@ -52,6 +60,8 @@ const ferramentaRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
+        ImageCropperModule,
         SharedModule
     ]
 })

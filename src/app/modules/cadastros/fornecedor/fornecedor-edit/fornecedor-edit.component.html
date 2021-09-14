@@ -75,7 +75,28 @@
                 </select>
                 <mat-error *ngIf="this.mainForm.get('ativo').invalid">Informe se o fornecedor está ativo</mat-error>
             </mat-form-field>
-        </div>      
+        </div>   
+        
+        <!-- UPLOAD DE FOTO (OPCIONAL) -->
+        <div class="flex flex-row">
+            <div class="flex-1">
+                <mat-label>Imagem</mat-label>
+                <input [multiple]="false" formControlName="arquivo" type="file" 
+                       [accept]="'image/jpeg, image/png'" class="custom-file-input" 
+                       id="arquivo" (change)="fileChangeEvent($event)">
+            </div>
+
+            <div *ngIf='imagemNome' class="flex flex-row">
+                <div class="flex-1">
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="4 / 3" [resizeToWidth]="256" [cropperMinWidth]="128" [onlyScaleDown]="true" [roundCropper]="false"
+                    [canvasRotation]="canvasRotation" [transform]="transform" [alignImage]="'left'" [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+                    (loadImageFailed)="loadImageFailed()"></image-cropper>
+                </div>
+                <div class="flex-1">
+                    <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'" />
+                </div>
+            </div>
+        </div>  
 
     </form>
 

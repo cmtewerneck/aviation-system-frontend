@@ -8,4 +8,5 @@ export interface MaterialOperacional extends Entity {
     localizacao: string;
     quantidade: number;
     imagem: string;
+    imagemUpload: string;
 }

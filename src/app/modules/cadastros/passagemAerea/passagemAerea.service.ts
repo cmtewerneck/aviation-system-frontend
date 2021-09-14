@@ -29,4 +29,9 @@ export class PassagemAereaService extends BaseApiService<PassagemAerea>
         return this.http
             .get('https://localhost:44335/api/passagens-aereas/export-to-pdf/' + tripulante);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/passagens-aereas/export-item-to-pdf/' + id);
+    }
 }

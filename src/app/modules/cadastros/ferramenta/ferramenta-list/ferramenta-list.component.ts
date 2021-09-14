@@ -9,6 +9,7 @@ import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
 import { FerramentaModalExcelComponent } from '../ferramenta-modal-excel/ferramenta-modal-excel.component';
+import { FerramentaModalExcluirComponent } from '../ferramenta-modal-excluir/ferramenta-modal-excluir.component';
 import { FerramentaModalPdfComponent } from '../ferramenta-modal-pdf/ferramenta-modal-pdf.component';
 import { Ferramenta } from '../ferramenta.model';
 import { FerramentaService } from '../ferramenta.service';
@@ -181,6 +182,18 @@ export class FerramentaListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(FerramentaModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

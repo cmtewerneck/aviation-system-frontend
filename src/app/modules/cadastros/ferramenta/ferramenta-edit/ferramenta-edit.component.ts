@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StringUtils } from 'app/shared/helpers/string-utils';
 import { ToastrService } from 'ngx-toastr';
 import { FerramentaService } from '../ferramenta.service';
+import { ImageCroppedEvent, ImageTransform, Dimensions } from 'ngx-image-cropper';
 
 @Component({
     selector: 'app-ferramenta-edit',
@@ -13,6 +13,19 @@ import { FerramentaService } from '../ferramenta.service';
 })
 
 export class FerramentaEditComponent implements OnInit, OnDestroy {
+
+    // VARIÁVEIS PARA IMAGEM
+    imageChangedEvent: any = '';
+    containWithinAspectRatio = false;
+    canvasRotation = 0;
+    transform: ImageTransform = {};
+    showCropper = false;
+    croppedImage: any = '';
+    
+    imagemNome: string;
+    rotation = 0;
+    scale = 1;
+    // ----------------------------------
 
     isLoading: boolean = false;
 
@@ -64,6 +77,9 @@ export class FerramentaEditComponent implements OnInit, OnDestroy {
 
         const model = this.mainForm.value;
 
+        model.imagemUpload = this.croppedImage.split(',')[1]; // TIRAR O HEADER DA IMAGEM EM BASE 64
+        model.imagem = this.imagemNome;
+
         console.log(model);
 
         // CONVERSÕES PARA JSON
@@ -109,15 +125,33 @@ export class FerramentaEditComponent implements OnInit, OnDestroy {
             const messages = [];
             for (const key in response.error.errors) {
                 response.error.errors[key].forEach(item => messages.push(item));
-                // if (Object.prototype.hasOwnProperty.call(object, key)) {
-                //     const element = object[key];
-                // }
             }
             if (messages.length === 1)
                 this._toastr.error(messages[0]);
             else
                 this._toastr.error("- " + messages.join("<br>- "));
         }
+    }
+
+    fileChangeEvent(event: any): void {
+        this.imageChangedEvent = event;
+        this.imagemNome = event.currentTarget.files[0].name;
+    }
+
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64;
+    }
+      
+    imageLoaded() {
+        this.showCropper = true;
+    }
+    
+    cropperReady(sourceImageDimensions: Dimensions) {
+        console.log('Recorte realizado', sourceImageDimensions);
+    }
+    
+    loadImageFailed() {
+        console.log('Formato não aceito');
     }
 
 }

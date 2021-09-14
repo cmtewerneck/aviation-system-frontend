@@ -9,6 +9,8 @@ import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
 import { Fornecedor } from '../fornecedor.model';
 import { FornecedorService } from '../fornecedor.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FornecedorModalExcluirComponent } from '../fornecedor-modal-excluir/fornecedor-modal-excluir.component';
 
 @Component({
     selector: 'app-fornecedor-list',
@@ -46,7 +48,8 @@ export class FornecedorListComponent implements OnInit, OnDestroy {
 
     constructor(
         private _fornecedorService: FornecedorService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        public dialog: MatDialog
     ) {
     }
 
@@ -173,6 +176,18 @@ export class FornecedorListComponent implements OnInit, OnDestroy {
             console.log(res);
         }, error => {
             console.log(error);
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(FornecedorModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

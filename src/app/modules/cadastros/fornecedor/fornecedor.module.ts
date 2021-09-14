@@ -20,11 +20,16 @@ import { FornecedorEditComponent } from './fornecedor-edit/fornecedor-edit.compo
 import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { FornecedorModalExcluirComponent } from './fornecedor-modal-excluir/fornecedor-modal-excluir.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { FornecedorDetailComponent } from './fornecedor-detail/fornecedor-detail.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const fornecedorRoutes: Route[] = [
     {
-        path: '',
-        component: FornecedorListComponent
+        path: '', component: FornecedorListComponent
+    },
+    {
+        path: 'details/:id', component: FornecedorDetailComponent
     }
 ];
 
@@ -32,7 +37,8 @@ const fornecedorRoutes: Route[] = [
     declarations: [
         FornecedorListComponent,
         FornecedorEditComponent,
-        FornecedorModalExcluirComponent
+        FornecedorModalExcluirComponent,
+        FornecedorDetailComponent
     ],
     imports: [
         RouterModule.forChild(fornecedorRoutes),
@@ -53,6 +59,8 @@ const fornecedorRoutes: Route[] = [
         MatExpansionModule,
         SharedModule,
         NgxMaskModule.forChild(),
+        ImageCropperModule,
+        FuseCardModule
     ]
 })
 export class FornecedorModule {

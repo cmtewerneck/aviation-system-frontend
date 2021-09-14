@@ -35,4 +35,9 @@ export class ContratoService extends BaseApiService<Contrato>
         return this.http
             .get('https://localhost:44335/api/contratos/export-to-pdf/' + contratante);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/contratos/export-item-to-pdf/' + id);
+    }
 }

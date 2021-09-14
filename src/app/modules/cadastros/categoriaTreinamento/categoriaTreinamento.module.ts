@@ -20,11 +20,16 @@ import { CategoriaTreinamentoEditComponent } from './categoria-treinamento-edit/
 import { CategoriaTreinamentoListComponent } from './categoria-treinamento-list/categoria-treinamento-list.component';
 import { CategoriaTreinamentoModalPdfComponent } from './categoria-treinamento-modal-pdf/categoria-treinamento-modal-pdf.component';
 import { CategoriaTreinamentoModalExcelComponent } from './categoria-treinamento-modal-excel/categoria-treinamento-modal-excel.component';
+import { CategoriaTreinamentoDetailComponent } from './categoria-treinamento-detail/categoria-treinamento-detail.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { CategoriaTreinamentoModalExcluirComponent } from './categoria-treinamento-modal-excluir/categoria-treinamento-modal-excluir.component';
 
 const categoriaTreinamentoRoutes: Route[] = [
     {
-        path: '',
-        component: CategoriaTreinamentoListComponent
+        path: '', component: CategoriaTreinamentoListComponent
+    },
+    {
+        path: 'details/:id', component: CategoriaTreinamentoDetailComponent
     }
 ];
 
@@ -33,6 +38,8 @@ const categoriaTreinamentoRoutes: Route[] = [
         CategoriaTreinamentoListComponent,
         CategoriaTreinamentoEditComponent,
         CategoriaTreinamentoModalPdfComponent,
+        CategoriaTreinamentoDetailComponent,
+        CategoriaTreinamentoModalExcluirComponent,
         CategoriaTreinamentoModalExcelComponent
     ],
     imports: [
@@ -52,6 +59,7 @@ const categoriaTreinamentoRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

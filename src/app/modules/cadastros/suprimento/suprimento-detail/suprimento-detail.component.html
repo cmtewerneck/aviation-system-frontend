@@ -16,71 +16,192 @@
     
     <!-- Return -->
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'accent'" (click)="exportToPdf()">
+            <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
+        </button>
         <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['/suprimentos']">
-            <span class="ml-2 mr-1">Cancelar</span>
+            <span class="ml-2 mr-1">Voltar</span>
         </button>
     </div>
 </div>
 
 <!-- MAIN -->
-<div class="flex flex-col p-8 overflow-hidden">
+<div class="flex flex-row p-8 overflow-y-scroll overflow-x-hidden">
 
-    <fuse-card class="flex flex-col lg:flex-row max-w-sm lg:max-w-240 filter-pricing">
-        <div class="p-6 sm:p-8 lg:p-10">
-            <div class="text-3xl font-bold">{{ suprimento.nomenclatura }}</div>
-            <!-- <div class="mt-2 leading-relaxed text-secondary">
-                Learn from like-minded individuals which are eager to make a living building stuff on the web. Pay once and get lifetime access to the community.
-            </div> -->
-            <div class="flex items-center mt-10">
-                <div class="font-medium text-secondary">ESPECIFICAÇÕES</div>
-                <div class="flex-auto ml-2 border-b-2"></div>
+    <fuse-card class="flex flex-col md:flex-row justify-between w-full p-8 pb-4 filter-listing">
+        <div class="flex flex-col flex-auto order-2 md:order-1">
+            <div class="text-2xl font-semibold leading-tight">{{ suprimento.nomenclatura }}</div>
+            <div class="mt-6">
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Nomenclatura: </span>&nbsp;
+                    <span>{{ suprimento.nomenclatura }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Código: </span>&nbsp;
+                    <span>{{ suprimento.codigo }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">PN: </span>&nbsp;
+                    <span>{{ suprimento.partNumber }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Quantidade: </span>&nbsp;
+                    <span>{{ suprimento.quantidade }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Localização: </span>&nbsp;
+                    <span>{{ suprimento.localizacao }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">PN Alternativo: </span>&nbsp;
+                    <span>{{ suprimento.partNumberAlternativo }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Aplicação: </span>&nbsp;
+                    <span>{{ suprimento.aplicacao }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Capítulo: </span>&nbsp;
+                    <span>{{ suprimento.capitulo }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">SN: </span>&nbsp;
+                    <span>{{ suprimento.serialNumber }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">DOC: </span>&nbsp;
+                    <span>{{ suprimento.doc }}</span>
+                </div>
             </div>
-            <!-- Features -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-6">
-                <div class="flex items-center">
-                    <mat-icon
-                        class="icon-size-5 text-primary"
-                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-                    <div class="ml-2">Private forum access</div>
-                </div>
-                <div class="flex items-center">
-                    <mat-icon
-                        class="icon-size-5 text-primary"
-                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-                    <div class="ml-2">Access to annual online conference</div>
-                </div>
-                <div class="flex items-center">
-                    <mat-icon
-                        class="icon-size-5 text-primary"
-                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-                    <div class="ml-2">Member resources</div>
-                </div>
-                <div class="flex items-center">
-                    <mat-icon
-                        class="icon-size-5 text-primary"
-                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-                    <div class="ml-2">Official member T-Shirt</div>
-                </div>
+            <div class="flex items-center mt-3 -mx-3">
+                <!-- <button
+                    class="px-3 mr-1"
+                    mat-button
+                    [color]="'primary'"
+                    [routerLink]="['./']">
+                    Editar Suprimento
+                </button> -->
+                <button
+                    class="px-3"
+                    mat-button
+                    [color]="'primary'"
+                    [routerLink]="['./']">
+                    Alterar Imagem
+                </button>
             </div>
         </div>
-        <!-- Price -->
-        <div class="flex flex-col items-center p-8 lg:px-10 lg:py-12 lg:min-w-80 bg-gray-100 dark:bg-black dark:bg-opacity-10">
-            <div class="flex items-center whitespace-nowrap">
-                <div class="text-8xl font-extrabold tracking-tight">$599</div>
-                <div class="ml-2 text-2xl font-semibold text-secondary">USD</div>
-            </div>
-            <!-- <div class="font-medium text-center text-secondary">
-                <div>No monthly subscription,</div>
-                <div>you only pay once.</div>
-            </div> -->
-            <button
-                class="w-full mt-8 lg:mt-auto"
-                mat-flat-button
-                [color]="'primary'">
-                Alterar Imagem  
-            </button>
+        <div class="order-1 md:order-2 w-full md:w-40 md:ml-6 mb-8 md:mb-4 rounded-lg overflow-hidden">
+            <img
+                class="w-full h-full object-cover"
+                src="assets/images/avatars/brian-hughes.jpg"
+                alt="No Image">
         </div>
-    </fuse-card>
+    </fuse-card> 
+
+    <!-- MOVIMENTAÇÕES -->
+    <fuse-card class="flex flex-col md:flex-row justify-between w-full p-8 pb-4 filter-listing">
+        <div class="flex flex-col flex-auto order-2 md:order-1">
+            <div class="text-2xl font-semibold leading-tight">Movimentações</div>
+            <div class="mt-6">
+                <table class="w-full min-w-320 table-fixed bg-transparent"
+                        [ngClass]="{'pointer-events-none': isLoading}" mat-table matSort
+                        [dataSource]="suprimentos">
+
+                        <!-- codigo -->
+                        <ng-container matColumnDef="codigo">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Código
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.codigo}}
+                            </td>
+                        </ng-container>
+
+                        <!-- partNumber -->
+                        <ng-container matColumnDef="partNumber">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                PartNumber
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.partNumber}}
+                            </td>
+                        </ng-container>
+
+                        <!-- nomenclatura -->
+                        <ng-container matColumnDef="nomenclatura">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Nomenclatura
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.nomenclatura}}
+                            </td>
+                        </ng-container>
+
+                        <!-- quantidade -->
+                        <ng-container matColumnDef="quantidade">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Quantidade
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.quantidade}}
+                            </td>
+                        </ng-container>
+                        
+                        <!-- localizacao -->
+                        <ng-container matColumnDef="localizacao">
+                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
+                                mat-sort-header disableClear>
+                                Localização
+                            </th>
+                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
+                                {{row.localizacao}}
+                            </td>
+                        </ng-container>                        
+
+                        <!-- actions -->
+                        <ng-container matColumnDef="actions">
+                            <th class="w-24 pr-8 bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell
+                                *matHeaderCellDef>
+                                Ações
+                            </th>
+                            <td class="pr-8" mat-cell *matCellDef="let row">
+                                <div class="flex flex-row">
+                                    <button mat-icon-button [routerLink]="['/suprimentos/details',row.id]">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                    </button>
+                                    
+                                    <button mat-icon-button (click)="edit(row.id)">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                                    </button>
+
+                                    <button mat-icon-button (click)="delete(row.id)">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                                    </button> 
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <!-- <tr class="shadow" mat-header-row *matHeaderRowDef="productsTableColumns; sticky: true"></tr>
+                        <tr class="h-18 hover:bg-hover" mat-row *matRowDef="let row; columns: productsTableColumns;"> -->
+                        <!-- </tr> -->
+
+                    </table>
+            </div>
+        </div>
+    </fuse-card> 
 
 </div>
 

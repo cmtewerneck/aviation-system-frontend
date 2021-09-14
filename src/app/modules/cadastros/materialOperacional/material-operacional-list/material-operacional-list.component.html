@@ -20,15 +20,6 @@
             <button mat-icon-button aria-label="Show/hide filters" (click)="onFilterExpanded()">
                 <mat-icon>filter_list</mat-icon>
             </button>
-            <!-- <button mat-mini-fab aria-label="Example icon button with a filter list icon">
-                <mat-icon>filter_list</mat-icon>
-            </button> -->
-            <!-- Search -->
-            <!-- <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript min-w-50">
-                <mat-icon matPrefix [svgIcon]="'heroicons_outline:search'"></mat-icon>
-                <input matInput [formControl]="searchInputControl" [autocomplete]="'off'"
-                    [placeholder]="'Search products'">
-            </mat-form-field> -->
             <!-- Add product button -->
             <button class="ml-4" mat-flat-button [color]="'primary'" (click)="add()">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
@@ -163,11 +154,15 @@
                             </th>
                             <td class="pr-8" mat-cell *matCellDef="let row">
                                 <div class="flex flex-row">
+                                    <button mat-icon-button [routerLink]="['/materiais-operacionais/details',row.id]">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                    </button> 
+
                                     <button mat-icon-button (click)="edit(row.id)">
                                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
                                     </button>
 
-                                    <button mat-icon-button (click)="delete(row.id)">
+                                    <button mat-icon-button (click)="openDialogDelete(row.id)">
                                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
                                     </button>
                                 </div>

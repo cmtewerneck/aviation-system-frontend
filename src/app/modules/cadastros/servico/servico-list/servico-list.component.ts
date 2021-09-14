@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FieldTypeEnum } from 'app/shared/enums/fieldType.enum';
@@ -8,6 +9,7 @@ import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
 import { Subject } from 'rxjs';
+import { ServicoModalExcluirComponent } from '../servico-modal-excluir/servico-modal-excluir.component';
 import { Servico } from '../servico.model';
 import { ServicoService } from '../servico.service';
 
@@ -47,7 +49,8 @@ export class ServicoListComponent implements OnInit, OnDestroy {
 
     constructor(
         private _servicoService: ServicoService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        public dialog: MatDialog
     ) {
     }
 
@@ -174,6 +177,18 @@ export class ServicoListComponent implements OnInit, OnDestroy {
             console.log(res);
         }, error => {
             console.log(error);
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(ServicoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

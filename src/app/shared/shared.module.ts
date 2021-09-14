@@ -10,7 +10,8 @@ import { StatusTreinamentoEnumPipe } from './helpers/statusTreinamentoEnum.pipe'
 import { TipoCombustivelEnumPipe } from './helpers/tipoCombustivelEnum.pipe';
 import { TipoMovimentacaoEnumPipe } from './helpers/tipoMovimentacaoEnum.pipe';
 import { TipoTreinamentoEnumPipe } from './helpers/tipoTreinamentoEnum.pipe';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatCardModule
     ],
     exports: [
         CommonModule,
@@ -43,7 +45,8 @@ import {MatDialogModule} from '@angular/material/dialog';
         TipoCombustivelEnumPipe,
         TipoMovimentacaoEnumPipe,
         TipoTreinamentoEnumPipe,
-        MatDialogModule
+        MatDialogModule,
+        MatCardModule
     ]
 }) 
 export class SharedModule

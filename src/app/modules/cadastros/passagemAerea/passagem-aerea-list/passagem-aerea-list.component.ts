@@ -12,6 +12,7 @@ import { PassagemAerea } from '../passagemAerea.model';
 import { PassagemAereaService } from '../passagemAerea.service';
 import { PassagemAereaModalExcelComponent } from '../passagem-aerea-modal-excel/passagem-aerea-modal-excel.component';
 import { PassagemAereaModalPdfComponent } from '../passagem-aerea-modal-pdf/passagem-aerea-modal-pdf.component';
+import { PassagemAereaModalExcluirComponent } from '../passagem-aerea-modal-excluir/passagem-aerea-modal-excluir.component';
 
 @Component({
     selector: 'app-passagem-aerea-list',
@@ -178,6 +179,18 @@ export class PassagemAereaListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(PassagemAereaModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

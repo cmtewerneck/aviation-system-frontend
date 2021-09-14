@@ -20,11 +20,17 @@ import { MaterialOperacionalEditComponent } from './material-operacional-edit/ma
 import { MaterialOperacionalListComponent } from './material-operacional-list/material-operacional-list.component';
 import { MaterialOperacionalModalPdfComponent } from './material-operacional-modal-pdf/material-operacional-modal-pdf.component';
 import { MaterialOperacionalModalExcelComponent } from './material-operacional-modal-excel/material-operacional-modal-Excel.component';
+import { MaterialOperacionalModalExcluirComponent } from './material-operacional-modal-excluir/material-operacional-modal-excluir.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { MaterialOperacionalDetailComponent } from './material-operacional-detail/material-operacional-detail.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const materialOperacionalRoutes: Route[] = [
     {
-        path: '',
-        component: MaterialOperacionalListComponent
+        path: '', component: MaterialOperacionalListComponent
+    },
+    {
+        path: 'details/:id', component: MaterialOperacionalDetailComponent
     }
 ];
 
@@ -32,8 +38,10 @@ const materialOperacionalRoutes: Route[] = [
     declarations: [
         MaterialOperacionalListComponent,
         MaterialOperacionalEditComponent,
+        MaterialOperacionalDetailComponent,
         MaterialOperacionalModalPdfComponent,
-        MaterialOperacionalModalExcelComponent
+        MaterialOperacionalModalExcelComponent,
+        MaterialOperacionalModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(materialOperacionalRoutes),
@@ -52,7 +60,9 @@ const materialOperacionalRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
-        SharedModule
+        ImageCropperModule,
+        SharedModule,
+        FuseCardModule
     ]
 })
 export class MaterialOperacionalModule {

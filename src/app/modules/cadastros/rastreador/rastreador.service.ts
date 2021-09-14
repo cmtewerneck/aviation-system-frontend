@@ -29,4 +29,9 @@ export class RastreadorService extends BaseApiService<Rastreador>
         return this.http
             .get('https://localhost:44335/api/aeronaves/rastreadores/export-to-pdf/' + modelo);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/aeronaves/rastreadores/export-item-to-pdf/' + id);
+    }
 }

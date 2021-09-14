@@ -7,4 +7,5 @@ export interface ManualEmpresa extends Entity {
     dataRevisao: Date;
     revisaoAnalise?: number;
     arquivo: string;
+    arquivoUpload: string;
 }

@@ -29,4 +29,9 @@ export class AeronaveAbastecimentoService extends BaseApiService<AeronaveAbastec
         return this.http
             .get('https://localhost:44335/api/aeronaves/abastecimentos/export-to-pdf/' + matricula);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/aeronaves/abastecimentos/export-item-to-pdf/' + id);
+    }
 }

@@ -8,4 +8,6 @@ export interface Fornecedor extends Entity {
     telefone: string;
     email: string;
     ativo: boolean;
+    arquivo: string;
+    arquivoUpload: string;
 }
