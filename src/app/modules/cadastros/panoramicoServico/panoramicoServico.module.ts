@@ -20,11 +20,16 @@ import { PanoramicoServicoEditComponent } from './panoramico-servico-edit/panora
 import { PanoramicoServicoListComponent } from './panoramico-servico-list/panoramico-servico-list.component';
 import { PanoramicoServicoModalPdfComponent } from './panoramico-servico-modal-pdf/panoramico-servico-modal-pdf.component';
 import { PanoramicoServicoModalExcelComponent } from './panoramico-servico-modal-excel/panoramico-servico-modal-excel.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { PanoramicoServicoModalExcluirComponent } from './panoramico-servico-modal-excluir/panoramico-servico-modal-excluir.component';
+import { PanoramicoServicoDetailComponent } from './panoramico-servico-detail/panoramico-servico-detail.component';
 
 const panoramicoServicoRoutes: Route[] = [
     {
-        path: '',
-        component: PanoramicoServicoListComponent
+        path: '', component: PanoramicoServicoListComponent
+    },
+    {
+        path: 'details/:id', component: PanoramicoServicoDetailComponent
     }
 ];
 
@@ -33,7 +38,9 @@ const panoramicoServicoRoutes: Route[] = [
         PanoramicoServicoListComponent,
         PanoramicoServicoEditComponent,
         PanoramicoServicoModalExcelComponent,
-        PanoramicoServicoModalPdfComponent
+        PanoramicoServicoModalPdfComponent,
+        PanoramicoServicoDetailComponent,
+        PanoramicoServicoModalExcluirComponent,
     ],
     imports: [
         RouterModule.forChild(panoramicoServicoRoutes),
@@ -52,6 +59,7 @@ const panoramicoServicoRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

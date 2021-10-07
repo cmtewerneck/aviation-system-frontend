@@ -22,4 +22,9 @@ export class RevendedorService extends BaseApiService<Revendedor>
         return this.http
             .get('https://localhost:44335/api/revendedores/export-to-pdf/');
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/revendedores/export-item-to-pdf/' + id);
+    }
 }

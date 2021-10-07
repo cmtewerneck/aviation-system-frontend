@@ -12,6 +12,7 @@ import { Suprimento } from '../suprimento.model';
 import { SuprimentoService } from '../suprimento.service';
 import { SuprimentoModalPdfComponent } from '../suprimento-modal-pdf/suprimento-modal-pdf.component';
 import { SuprimentoModalExcelComponent } from '../suprimento-modal-excel/suprimento-modal-excel.component';
+import { SuprimentoModalExcluirComponent } from '../suprimento-modal-excluir/suprimento-modal-excluir.component';
 
 @Component({
     selector: 'app-suprimento-list',
@@ -187,6 +188,18 @@ export class SuprimentoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(SuprimentoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

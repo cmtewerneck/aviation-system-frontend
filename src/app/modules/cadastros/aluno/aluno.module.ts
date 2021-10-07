@@ -19,18 +19,25 @@ import { SharedModule } from 'app/shared/shared.module';
 import { AlunoEditComponent } from './aluno-edit/aluno-edit.component';
 import { AlunoListComponent } from './aluno-list/aluno-list.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FuseCardModule } from '@fuse/components/card';
+import { AlunoDetailComponent } from './aluno-detail/aluno-detail.component';
+import { AlunoModalExcluirComponent } from './aluno-modal-excluir/aluno-modal-excluir.component';
 
 const alunoRoutes: Route[] = [
     {
-        path: '',
-        component: AlunoListComponent
+        path: '', component: AlunoListComponent
+    },
+    {
+        path: 'details/:id', component: AlunoDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         AlunoListComponent,
-        AlunoEditComponent
+        AlunoEditComponent,
+        AlunoDetailComponent,
+        AlunoModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(alunoRoutes),
@@ -50,6 +57,7 @@ const alunoRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

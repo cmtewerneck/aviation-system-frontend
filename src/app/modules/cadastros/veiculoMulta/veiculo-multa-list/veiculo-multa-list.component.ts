@@ -12,6 +12,7 @@ import { VeiculoMulta } from '../veiculoMulta.model';
 import { VeiculoMultaService } from '../veiculoMulta.service';
 import { VeiculoMultaModalExcelComponent } from '../veiculo-multa-modal-excel/veiculo-multa-modal-excel.component';
 import { VeiculoMultaModalPdfComponent } from '../veiculo-multa-modal-pdf/veiculo-multa-modal-pdf.component';
+import { VeiculoMultaModalExcluirComponent } from '../veiculo-multa-modal-excluir/veiculo-multa-modal-excluir.component';
 
 @Component({
     selector: 'app-veiculo-multa-list',
@@ -182,6 +183,18 @@ export class VeiculoMultaListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(VeiculoMultaModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

@@ -22,4 +22,9 @@ export class ContaReceberService extends BaseApiService<ContaReceber>
         return this.http
             .get('https://localhost:44335/api/financeiros/export-to-pdf/' + tipoFinanceiro);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/financeiros/export-item-to-pdf/' + id);
+    }
 }

@@ -21,5 +21,10 @@ export class CursoService extends BaseApiService<Curso>
     exportToPdf() {
         return this.http
             .get('https://localhost:44335/api/cursos/export-to-pdf/');
-    }   
+    } 
+    
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/cursos/export-item-to-pdf/' + id);
+    }
 }

@@ -9,6 +9,7 @@ import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
 import { PanoramicoFinanceiroModalExcelComponent } from '../panoramico-financeiro-modal-excel/panoramico-financeiro-modal-excel.component';
+import { PanoramicoFinanceiroModalExcluirComponent } from '../panoramico-financeiro-modal-excluir/panoramico-financeiro-modal-excluir.component';
 import { PanoramicoFinanceiroModalPdfComponent } from '../panoramico-financeiro-modal-pdf/panoramico-financeiro-modal-pdf.component';
 import { PanoramicoFinanceiro } from '../panoramicoFinanceiro.model';
 import { PanoramicoFinanceiroService } from '../panoramicoFinanceiro.service';
@@ -184,6 +185,18 @@ export class PanoramicoFinanceiroListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(PanoramicoFinanceiroModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

@@ -18,18 +18,25 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { InstrutorEditComponent } from './instrutor-edit/instrutor-edit.component';
 import { InstrutorListComponent } from './instrutor-list/instrutor-list.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { InstrutorDetailComponent } from './instrutor-detail/instrutor-detail.component';
+import { InstrutorModalExcluirComponent } from './instrutor-modal-excluir/instrutor-modal-excluir.component';
 
 const instrutorRoutes: Route[] = [
     {
-        path: '',
-        component: InstrutorListComponent
+        path: '', component: InstrutorListComponent
+    },
+    {
+        path: 'details/:id', component: InstrutorDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         InstrutorListComponent,
-        InstrutorEditComponent
+        InstrutorEditComponent,
+        InstrutorDetailComponent,
+        InstrutorModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(instrutorRoutes),
@@ -48,6 +55,7 @@ const instrutorRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

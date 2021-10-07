@@ -18,18 +18,25 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { CursoEditComponent } from './curso-edit/curso-edit.component';
 import { CursoListComponent } from './curso-list/curso-list.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { CursoDetailComponent } from './curso-detail/curso-detail.component';
+import { CursoModalExcluirComponent } from './curso-modal-excluir/curso-modal-excluir.component';
 
 const cursoRoutes: Route[] = [
     {
-        path: '',
-        component: CursoListComponent
+        path: '', component: CursoListComponent
+    },
+    {
+        path: 'details/:id', component: CursoDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         CursoListComponent,
-        CursoEditComponent
+        CursoEditComponent,
+        CursoDetailComponent,
+        CursoModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(cursoRoutes),
@@ -48,6 +55,7 @@ const cursoRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

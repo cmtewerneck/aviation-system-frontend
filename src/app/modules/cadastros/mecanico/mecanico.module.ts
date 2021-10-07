@@ -19,18 +19,25 @@ import { SharedModule } from 'app/shared/shared.module';
 import { MecanicoEditComponent } from './mecanico-edit/mecanico-edit.component';
 import { MecanicoListComponent } from './mecanico-list/mecanico-list.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FuseCardModule } from '@fuse/components/card';
+import { MecanicoDetailComponent } from './mecanico-detail/mecanico-detail.component';
+import { MecanicoModalExcluirComponent } from './mecanico-modal-excluir/mecanico-modal-excluir.component';
 
 const mecanicoRoutes: Route[] = [
     {
-        path: '',
-        component: MecanicoListComponent
+        path: '', component: MecanicoListComponent
+    },
+    {
+        path: 'details/:id', component: MecanicoDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         MecanicoListComponent,
-        MecanicoEditComponent
+        MecanicoEditComponent,
+        MecanicoDetailComponent,
+        MecanicoModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(mecanicoRoutes),
@@ -49,6 +56,7 @@ const mecanicoRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         NgxMaskModule.forChild(),
         SharedModule
     ]

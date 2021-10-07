@@ -6,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
 import { SuprimentoMovimentacaoModalExcelComponent } from '../suprimento-movimentacao-modal-excel/suprimento-movimentacao-modal-excel.component';
+import { SuprimentoMovimentacaoModalExcluirComponent } from '../suprimento-movimentacao-modal-excluir/suprimento-movimentacao-modal-excluir.component';
 import { SuprimentoMovimentacaoModalPdfComponent } from '../suprimento-movimentacao-modal-pdf/suprimento-movimentacao-modal-pdf.component';
 import { SuprimentoMovimentacao } from '../suprimentoMovimentacao.model';
 import { SuprimentoMovimentacaoService } from '../suprimentoMovimentacao.service';
@@ -179,6 +180,18 @@ export class SuprimentoMovimentacaoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(SuprimentoMovimentacaoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

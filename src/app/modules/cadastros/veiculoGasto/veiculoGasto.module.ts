@@ -22,11 +22,16 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { NgxCurrencyModule } from "ngx-currency";
 import { VeiculoGastoModalExcelComponent } from './veiculo-gasto-modal-excel/veiculo-gasto-modal-excel.component';
 import { VeiculoGastoModalPdfComponent } from './veiculo-gasto-modal-pdf/veiculo-gasto-modal-pdf.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { VeiculoGastoModalExcluirComponent } from './veiculo-gasto-modal-excluir/veiculo-gasto-modal-excluir.component';
+import { VeiculoGastoDetailComponent } from './veiculo-gasto-detail/veiculo-gasto-detail.component';
 
 const veiculoGastoRoutes: Route[] = [
     {
-        path: '',
-        component: VeiculoGastoListComponent
+        path: '', component: VeiculoGastoListComponent
+    },
+    {
+        path: 'details/:id', component: VeiculoGastoDetailComponent
     }
 ];
 
@@ -35,7 +40,9 @@ const veiculoGastoRoutes: Route[] = [
         VeiculoGastoListComponent,
         VeiculoGastoEditComponent,
         VeiculoGastoModalPdfComponent,
-        VeiculoGastoModalExcelComponent
+        VeiculoGastoModalExcelComponent,
+        VeiculoGastoModalExcluirComponent,
+        VeiculoGastoDetailComponent
     ],
     imports: [
         RouterModule.forChild(veiculoGastoRoutes),
@@ -56,7 +63,8 @@ const veiculoGastoRoutes: Route[] = [
         MatExpansionModule,
         SharedModule,
         NgxMaskModule.forChild(),
-        NgxCurrencyModule
+        NgxCurrencyModule,
+        FuseCardModule
     ]
 })
 export class VeiculoGastoModule {

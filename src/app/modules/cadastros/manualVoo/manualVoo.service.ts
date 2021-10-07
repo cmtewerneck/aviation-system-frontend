@@ -22,4 +22,9 @@ export class ManualVooService extends BaseApiService<ManualVoo>
         return this.http
             .get('https://localhost:44335/api/manuais-voo/export-to-pdf/');
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/manuais-voo/export-item-to-pdf/' + id);
+    }
 }

@@ -35,4 +35,9 @@ export class DiariaService extends BaseApiService<Diaria>
         return this.http
             .get('https://localhost:44335/api/diarias/export-to-pdf/' + nome);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/diarias/export-item-to-pdf/' + id);
+    }
 }

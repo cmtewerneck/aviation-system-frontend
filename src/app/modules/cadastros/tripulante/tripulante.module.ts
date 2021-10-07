@@ -19,18 +19,25 @@ import { SharedModule } from 'app/shared/shared.module';
 import { TripulanteEditComponent } from './tripulante-edit/tripulante-edit.component';
 import { TripulanteListComponent } from './tripulante-list/tripulante-list.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FuseCardModule } from '@fuse/components/card';
+import { TripulanteDetailComponent } from './tripulante-detail/tripulante-detail.component';
+import { TripulanteModalExcluirComponent } from './tripulante-modal-excluir/tripulante-modal-excluir.component';
 
 const tripulanteRoutes: Route[] = [
     {
-        path: '',
-        component: TripulanteListComponent
+        path: '', component: TripulanteListComponent
+    },
+    {
+        path: 'details/:id', component: TripulanteDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         TripulanteListComponent,
-        TripulanteEditComponent
+        TripulanteEditComponent,
+        TripulanteDetailComponent,
+        TripulanteModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(tripulanteRoutes),
@@ -50,6 +57,7 @@ const tripulanteRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

@@ -29,4 +29,9 @@ export class SuprimentoMovimentacaoService extends BaseApiService<SuprimentoMovi
         return this.http
             .get('https://localhost:44335/api/suprimentos/movimentacoes/export-to-pdf/' + itemNomenclatura);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/suprimentos/movimentacoes/export-item-to-pdf/' + id);
+    }
 }

@@ -131,11 +131,15 @@
                             </th>
                             <td class="pr-8" mat-cell *matCellDef="let row">
                                 <div class="flex flex-row">
+                                    <button mat-icon-button [routerLink]="['/revendedores/details',row.id]">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                    </button>
+                                    
                                     <button mat-icon-button (click)="edit(row.id)">
                                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
                                     </button>
 
-                                    <button mat-icon-button (click)="delete(row.id)">
+                                    <button mat-icon-button (click)="openDialogDelete(row.id)">
                                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
                                     </button>
                                 </div>

@@ -12,6 +12,7 @@ import { Veiculo } from '../veiculo.model';
 import { VeiculoService } from '../veiculo.service';
 import { VeiculoModalExcelComponent } from '../veiculo-modal-excel/veiculo-modal-excel.component';
 import { VeiculoModalPdfComponent } from '../veiculo-modal-pdf/veiculo-modal-pdf.component';
+import { VeiculoModalExcluirComponent } from '../veiculo-modal-excluir/veiculo-modal-excluir.component';
 
 @Component({
     selector: 'app-veiculo-list',
@@ -181,6 +182,18 @@ export class VeiculoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(VeiculoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

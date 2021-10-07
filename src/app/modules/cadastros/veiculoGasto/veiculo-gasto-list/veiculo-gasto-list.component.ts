@@ -12,6 +12,7 @@ import { VeiculoGasto } from '../veiculoGasto.model';
 import { VeiculoGastoService } from '../veiculoGasto.service';
 import { VeiculoGastoModalExcelComponent } from '../veiculo-gasto-modal-excel/veiculo-gasto-modal-excel.component';
 import { VeiculoGastoModalPdfComponent } from '../veiculo-gasto-modal-pdf/veiculo-gasto-modal-pdf.component';
+import { VeiculoGastoModalExcluirComponent } from '../veiculo-gasto-modal-excluir/veiculo-gasto-modal-excluir.component';
 
 @Component({
     selector: 'app-veiculo-gasto-list',
@@ -181,6 +182,18 @@ export class VeiculoGastoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(VeiculoGastoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

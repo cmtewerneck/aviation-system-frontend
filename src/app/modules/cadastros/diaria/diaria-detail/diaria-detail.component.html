@@ -1,0 +1,83 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        Detalhes
+    </div>
+    
+    <!-- Return -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'accent'" (click)="exportToPdf()">
+            <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['/diarias']">
+            <span class="ml-2 mr-1">Voltar</span>
+        </button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="flex flex-row p-8 overflow-y-scroll overflow-x-hidden">
+
+    <fuse-card class="flex flex-col md:flex-row justify-between w-full p-8 pb-4 filter-listing">
+        <div class="flex flex-col flex-auto order-2 md:order-1">
+            <div class="text-2xl font-semibold leading-tight">Data: {{ diaria.data | date: 'dd/MM/yyyy' }}</div>
+            <div class="mt-6">
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Data: </span>&nbsp;
+                    <span>{{ diaria.data | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Finalidade: </span>&nbsp;
+                    <span>{{ diaria.finalidade }}</span>
+                </div>
+
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Valor: </span>&nbsp;
+                    <span>{{ diaria.valor | currency }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Status: </span>&nbsp;
+                    <span *ngIf="diaria.status == 1">Pago</span>
+                    <span *ngIf="diaria.status == 2">Não Pago</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Forma de Pagamento: </span>&nbsp;
+                    <span *ngIf="diaria.formaPagamento == 1">Dinheiro</span>
+                    <span *ngIf="diaria.formaPagamento == 2">Cartão</span>
+                    <span *ngIf="diaria.formaPagamento == 3">Boleto</span>
+                    <span *ngIf="diaria.formaPagamento == 4">PIX</span>
+                    <span *ngIf="diaria.formaPagamento == 5">Transferência</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Colaborador: </span>&nbsp;
+                    <span>IMPLEMENTAR</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Contrato: </span>&nbsp;
+                    <span>IMPLEMENTAR</span>
+                </div>
+            </div>
+        </div>
+    </fuse-card> 
+
+</div>
+
+</div>
+
+<!-- class="w-full h-full object-cover" -->

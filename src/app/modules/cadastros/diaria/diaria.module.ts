@@ -21,11 +21,16 @@ import { DiariaListComponent } from './diaria-list/diaria-list.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { DiariaModalExcelComponent } from './diaria-modal-excel/diaria-modal-excel.component';
 import { DiariaModalPdfComponent } from './diaria-modal-pdf/diaria-modal-pdf.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { DiariaDetailComponent } from './diaria-detail/diaria-detail.component';
+import { DiariaModalExcluirComponent } from './diaria-modal-excluir/diaria-modal-excluir.component';
 
 const diariaRoutes: Route[] = [
     {
-        path: '',
-        component: DiariaListComponent
+        path: '', component: DiariaListComponent
+    },
+    {
+        path: 'details/:id', component: DiariaDetailComponent
     }
 ];
 
@@ -34,7 +39,9 @@ const diariaRoutes: Route[] = [
         DiariaListComponent,
         DiariaEditComponent,
         DiariaModalPdfComponent,
-        DiariaModalExcelComponent
+        DiariaModalExcelComponent,
+        DiariaDetailComponent,
+        DiariaModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(diariaRoutes),
@@ -54,6 +61,7 @@ const diariaRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

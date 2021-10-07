@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FieldTypeEnum } from 'app/shared/enums/fieldType.enum';
@@ -7,6 +8,7 @@ import { FilterOperatorEnum } from 'app/shared/enums/filterOperator.enum';
 import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
+import { TripulanteModalExcluirComponent } from '../tripulante-modal-excluir/tripulante-modal-excluir.component';
 import { Tripulante } from '../tripulante.model';
 import { TripulanteService } from '../tripulante.service';
 
@@ -46,7 +48,8 @@ export class TripulanteListComponent implements OnInit, OnDestroy {
 
     constructor(
         private _tripulanteService: TripulanteService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        public dialog: MatDialog
     ) {
     }
 
@@ -173,6 +176,18 @@ export class TripulanteListComponent implements OnInit, OnDestroy {
             console.log(res);
         }, error => {
             console.log(error);
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(TripulanteModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

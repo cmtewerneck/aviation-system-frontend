@@ -12,6 +12,7 @@ import { DiariaService } from '../diaria.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DiariaModalExcelComponent } from '../diaria-modal-excel/diaria-modal-excel.component';
 import { DiariaModalPdfComponent } from '../diaria-modal-pdf/diaria-modal-pdf.component';
+import { DiariaModalExcluirComponent } from '../diaria-modal-excluir/diaria-modal-excluir.component';
 
 @Component({
     selector: 'app-diaria-list',
@@ -184,6 +185,18 @@ export class DiariaListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(DiariaModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

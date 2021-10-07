@@ -37,13 +37,18 @@ export class PanoramicoFinanceiroService extends BaseApiService<PanoramicoFinanc
         .get<PanoramicoServico>('https://localhost:44335/api/panoramicos/servicos/' + id);
     }
 
-    exportToExcel(revendedor: string) {
+    exportToExcel(matricula: string) {
         return this.http
-            .get('https://localhost:44335/api/panoramicos/financeiros/export-to-excel/' + revendedor);
+            .get('https://localhost:44335/api/panoramicos/financeiros/export-to-excel/' + matricula);
     }
 
-    exportToPdf(revendedor: string) {
+    exportToPdf(matricula: string) {
         return this.http
-            .get('https://localhost:44335/api/panoramicos/financeiros/export-to-pdf/' + revendedor);
+            .get('https://localhost:44335/api/panoramicos/financeiros/export-to-pdf/' + matricula);
+    }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/panoramicos/financeiros/export-item-to-pdf/' + id);
     }
 }

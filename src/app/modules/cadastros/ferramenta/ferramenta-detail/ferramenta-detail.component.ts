@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ferramenta } from '../ferramenta.model';
 import { FerramentaService } from '../ferramenta.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-ferramenta-detail',
@@ -13,8 +14,8 @@ import { FerramentaService } from '../ferramenta.service';
 export class FerramentaDetailComponent implements OnInit {
 
     ferramentaId: string = "";
-    
     isLoading: boolean = false;
+    imagens: string = environment.imagensUrl;
 
     constructor(private ferramentaService: FerramentaService, 
                 private route: ActivatedRoute,

@@ -30,4 +30,9 @@ export class VeiculoGastoService extends BaseApiService<VeiculoGasto>
         return this.http
             .get('https://localhost:44335/api/veiculos/gastos/export-to-pdf/' + placa);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/veiculos/gastos/export-item-to-pdf/' + id);
+    }
 }

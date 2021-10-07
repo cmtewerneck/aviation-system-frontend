@@ -19,18 +19,25 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ContaPagarEditComponent } from './conta-pagar-edit/conta-pagar-edit.component';
 import { ContaPagarListComponent } from './conta-pagar-list/conta-pagar-list.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { FuseCardModule } from '@fuse/components/card';
+import { ContaPagarDetailComponent } from './conta-pagar-detail/conta-pagar-detail.component';
+import { ContaPagarModalExcluirComponent } from './conta-pagar-modal-excluir/conta-pagar-modal-excluir.component';
 
 const contaPagarRoutes: Route[] = [
     {
-        path: '',
-        component: ContaPagarListComponent
+        path: '', component: ContaPagarListComponent
+    },
+    {
+        path: 'details/:id', component: ContaPagarDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         ContaPagarListComponent,
-        ContaPagarEditComponent
+        ContaPagarEditComponent,
+        ContaPagarDetailComponent,
+        ContaPagarModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(contaPagarRoutes),
@@ -50,6 +57,7 @@ const contaPagarRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         SharedModule,
+        FuseCardModule,
         NgxMaskModule.forChild()
     ]
 })

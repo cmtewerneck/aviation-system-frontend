@@ -29,4 +29,9 @@ export class VeiculoMultaService extends BaseApiService<VeiculoMulta>
         return this.http
             .get('https://localhost:44335/api/veiculos/multas/export-to-pdf/' + placa);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/veiculos/multas/export-item-to-pdf/' + id);
+    }
 }

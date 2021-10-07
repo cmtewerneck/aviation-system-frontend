@@ -14,13 +14,18 @@ export class VeiculoService extends BaseApiService<Veiculo>
         super(api, 'veiculos');
     }
 
-    exportToExcel(tipoCombustivel?: TipoCombustivelEnum) {
+    exportToExcel(modelo: string) {
         return this.http
-            .get(`https://localhost:44335/api/veiculos/export-to-excel?tipoCombustivel=${tipoCombustivel}`);
+        .get('https://localhost:44335/api/veiculos/export-to-excel/' + modelo);
     }
 
-    exportToPdf(tipoCombustivel?: TipoCombustivelEnum) {
+    exportToPdf(modelo: string) {
         return this.http
-            .get('https://localhost:44335/api/veiculos/export-to-pdf/' + tipoCombustivel);
+            .get('https://localhost:44335/api/veiculos/export-to-pdf/' + modelo);
+    }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/veiculos/export-item-to-pdf/' + id);
     }
 }

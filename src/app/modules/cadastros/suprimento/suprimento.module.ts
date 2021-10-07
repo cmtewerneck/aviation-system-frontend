@@ -22,6 +22,7 @@ import { SuprimentoModalPdfComponent } from './suprimento-modal-pdf/suprimento-m
 import { SuprimentoModalExcelComponent } from './suprimento-modal-excel/suprimento-modal-excel.component';
 import { SuprimentoDetailComponent } from './suprimento-detail/suprimento-detail.component';
 import { FuseCardModule } from '@fuse/components/card';
+import { SuprimentoModalExcluirComponent } from './suprimento-modal-excluir/suprimento-modal-excluir.component';
 
 const suprimentoRoutes: Route[] = [
     {
@@ -38,6 +39,7 @@ const suprimentoRoutes: Route[] = [
         SuprimentoEditComponent,
         SuprimentoDetailComponent,
         SuprimentoModalPdfComponent,
+        SuprimentoModalExcluirComponent,
         SuprimentoModalExcelComponent
     ],
     imports: [

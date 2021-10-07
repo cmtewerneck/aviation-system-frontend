@@ -19,18 +19,25 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ContaReceberEditComponent } from './conta-receber-edit/conta-receber-edit.component';
 import { ContaReceberListComponent } from './conta-receber-list/conta-receber-list.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { FuseCardModule } from '@fuse/components/card';
+import { ContaReceberDetailComponent } from './conta-receber-detail/conta-receber-detail.component';
+import { ContaReceberModalExcluirComponent } from './conta-receber-modal-excluir/conta-receber-modal-excluir.component';
 
 const contaReceberRoutes: Route[] = [
     {
-        path: '',
-        component: ContaReceberListComponent
+        path: '', component: ContaReceberListComponent
+    },
+    {
+        path: 'details/:id', component: ContaReceberDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         ContaReceberListComponent,
-        ContaReceberEditComponent
+        ContaReceberEditComponent,
+        ContaReceberDetailComponent,
+        ContaReceberModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(contaReceberRoutes),
@@ -50,6 +57,7 @@ const contaReceberRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         SharedModule,
+        FuseCardModule,
         NgxMaskModule.forChild()
     ]
 })

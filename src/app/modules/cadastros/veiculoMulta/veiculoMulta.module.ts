@@ -21,11 +21,16 @@ import { VeiculoMultaListComponent } from './veiculo-multa-list/veiculo-multa-li
 import { NgxMaskModule } from 'ngx-mask';
 import { VeiculoMultaModalPdfComponent } from './veiculo-multa-modal-pdf/veiculo-multa-modal-pdf.component';
 import { VeiculoMultaModalExcelComponent } from './veiculo-multa-modal-excel/veiculo-multa-modal-excel.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { VeiculoMultaModalExcluirComponent } from './veiculo-multa-modal-excluir/veiculo-multa-modal-excluir.component';
+import { VeiculoMultaDetailComponent } from './veiculo-multa-detail/veiculo-multa-detail.component';
 
 const veiculoMultaRoutes: Route[] = [
     {
-        path: '',
-        component: VeiculoMultaListComponent
+        path: '',component: VeiculoMultaListComponent
+    },
+    {
+        path: 'details/:id', component: VeiculoMultaDetailComponent
     }
 ];
 
@@ -34,7 +39,9 @@ const veiculoMultaRoutes: Route[] = [
         VeiculoMultaListComponent,
         VeiculoMultaEditComponent,
         VeiculoMultaModalPdfComponent,
-        VeiculoMultaModalExcelComponent
+        VeiculoMultaModalExcelComponent,
+        VeiculoMultaModalExcluirComponent,
+        VeiculoMultaDetailComponent
     ],
     imports: [
         RouterModule.forChild(veiculoMultaRoutes),
@@ -54,7 +61,8 @@ const veiculoMultaRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         SharedModule,
-        NgxMaskModule.forChild()
+        NgxMaskModule.forChild(),
+        FuseCardModule
     ]
 })
 export class VeiculoMultaModule {

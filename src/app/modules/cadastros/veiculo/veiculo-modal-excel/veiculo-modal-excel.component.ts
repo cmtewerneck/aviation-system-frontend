@@ -12,7 +12,7 @@ import { VeiculoService } from '../veiculo.service';
 
 export class VeiculoModalExcelComponent implements OnInit {
 
-    tipoCombustivel?: TipoCombustivelEnum;
+    modelo: string = "";
 
     constructor(
                 public dialogRef: MatDialogRef<VeiculoModalExcelComponent>,
@@ -26,7 +26,7 @@ export class VeiculoModalExcelComponent implements OnInit {
     }
 
     exportToExcel() {
-        this._veiculoService.exportToExcel(this.tipoCombustivel).subscribe(res => {
+        this._veiculoService.exportToExcel(this.modelo).subscribe(res => {
             console.log(res);
         }, error => {
             console.log(error);

@@ -20,11 +20,16 @@ import { SuprimentoMovimentacaoEditComponent } from './suprimento-movimentacao-e
 import { SuprimentoMovimentacaoListComponent } from './suprimento-movimentacao-list/suprimento-movimentacao-list.component';
 import { SuprimentoMovimentacaoModalPdfComponent } from './suprimento-movimentacao-modal-pdf/suprimento-movimentacao-modal-pdf.component';
 import { SuprimentoMovimentacaoModalExcelComponent } from './suprimento-movimentacao-modal-excel/suprimento-movimentacao-modal-excel.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { SuprimentoMovimentacaoModalExcluirComponent } from './suprimento-movimentacao-modal-excluir/suprimento-movimentacao-modal-excluir.component';
+import { SuprimentoMovimentacaoDetailComponent } from './suprimento-movimentacao-detail/suprimento-movimentacao-detail.component';
 
 const suprimentoMovimentacaoRoutes: Route[] = [
     {
-        path: '',
-        component: SuprimentoMovimentacaoListComponent
+        path: '', component: SuprimentoMovimentacaoListComponent
+    },
+    {
+        path: 'details/:id', component: SuprimentoMovimentacaoDetailComponent
     }
 ];
 
@@ -33,7 +38,9 @@ const suprimentoMovimentacaoRoutes: Route[] = [
         SuprimentoMovimentacaoListComponent,
         SuprimentoMovimentacaoEditComponent,
         SuprimentoMovimentacaoModalPdfComponent,
-        SuprimentoMovimentacaoModalExcelComponent
+        SuprimentoMovimentacaoModalExcelComponent,
+        SuprimentoMovimentacaoModalExcluirComponent,
+        SuprimentoMovimentacaoDetailComponent
     ],
     imports: [
         RouterModule.forChild(suprimentoMovimentacaoRoutes),
@@ -52,6 +59,7 @@ const suprimentoMovimentacaoRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

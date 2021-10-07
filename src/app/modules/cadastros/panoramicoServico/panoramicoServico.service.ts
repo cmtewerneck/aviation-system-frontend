@@ -29,4 +29,9 @@ export class PanoramicoServicoService extends BaseApiService<PanoramicoServico>
         return this.http
             .get('https://localhost:44335/api/panoramicos/servicos/export-to-pdf/' + matricula);
     }
+
+    exportItemToPdf(id: string) {
+        return this.http
+            .get('https://localhost:44335/api/panoramicos/servicos/export-item-to-pdf/' + id);
+    }
 }

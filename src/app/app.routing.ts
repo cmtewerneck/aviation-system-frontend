@@ -123,6 +123,7 @@ export const appRoutes: Route[] = [
             {path: 'relprevs', loadChildren: () => import('app/modules/cadastros/relprev/relprev.module').then(m => m.RelprevModule)},
             {path: 'fichas-operacionais', loadChildren: () => import('app/modules/cadastros/fichaOperacional/fichaOperacional.module').then(m => m.FichaOperacionalModule)},
             {path: 'papeletas', loadChildren: () => import('app/modules/cadastros/papeleta/papeleta.module').then(m => m.PapeletaModule)},
+            {path: 'motoristas', loadChildren: () => import('app/modules/cadastros/motorista/motorista.module').then(m => m.MotoristaModule)},
         ]
     }
 ];

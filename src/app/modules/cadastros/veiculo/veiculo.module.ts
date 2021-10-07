@@ -21,11 +21,16 @@ import { VeiculoListComponent } from './veiculo-list/veiculo-list.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { VeiculoModalPdfComponent } from './veiculo-modal-pdf/veiculo-modal-pdf.component';
 import { VeiculoModalExcelComponent } from './veiculo-modal-excel/veiculo-modal-excel.component';
+import { VeiculoModalExcluirComponent } from './veiculo-modal-excluir/veiculo-modal-excluir.component';
+import { VeiculoDetailComponent } from './veiculo-detail/veiculo-detail.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const veiculoRoutes: Route[] = [
     {
-        path: '',
-        component: VeiculoListComponent
+        path: '', component: VeiculoListComponent
+    },
+    {
+        path: 'details/:id', component: VeiculoDetailComponent
     }
 ];
 
@@ -34,7 +39,9 @@ const veiculoRoutes: Route[] = [
         VeiculoListComponent,
         VeiculoEditComponent,
         VeiculoModalExcelComponent,
-        VeiculoModalPdfComponent
+        VeiculoModalPdfComponent,
+        VeiculoModalExcluirComponent,
+        VeiculoDetailComponent
     ],
     imports: [
         RouterModule.forChild(veiculoRoutes),
@@ -54,7 +61,8 @@ const veiculoRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         SharedModule,
-        NgxMaskModule.forChild()
+        NgxMaskModule.forChild(),
+        FuseCardModule
     ]
 })
 export class VeiculoModule {

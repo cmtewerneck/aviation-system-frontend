@@ -8,8 +8,8 @@ import { FilterOperatorEnum } from 'app/shared/enums/filterOperator.enum';
 import { OrderDirectionEnum } from 'app/shared/enums/orderDirection.enum';
 import { FilterInfo } from 'app/shared/models/filterInfo.model';
 import { QueryInfo } from 'app/shared/models/queryInfo.model';
-import { Subject } from 'rxjs';
 import { PanoramicoServicoModalExcelComponent } from '../panoramico-servico-modal-excel/panoramico-servico-modal-excel.component';
+import { PanoramicoServicoModalExcluirComponent } from '../panoramico-servico-modal-excluir/panoramico-servico-modal-excluir.component';
 import { PanoramicoServicoModalPdfComponent } from '../panoramico-servico-modal-pdf/panoramico-servico-modal-pdf.component';
 import { PanoramicoServico } from '../panoramicoServico.model';
 import { PanoramicoServicoService } from '../panoramicoServico.service';
@@ -178,6 +178,18 @@ export class PanoramicoServicoListComponent implements OnInit, OnDestroy {
     
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
+        });
+    }
+
+    openDialogDelete(id): void {
+        const dialogRef = this.dialog.open(PanoramicoServicoModalExcluirComponent, {
+          width: '500px',
+          data: { id: id }
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.load();
         });
     }
 }

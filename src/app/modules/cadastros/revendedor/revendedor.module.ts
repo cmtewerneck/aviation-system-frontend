@@ -18,18 +18,25 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { RevendedorEditComponent } from './revendedor-edit/revendedor-edit.component';
 import { RevendedorListComponent } from './revendedor-list/revendedor-list.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { RevendedorModalExcluirComponent } from './revendedor-modal-excluir/revendedor-modal-excluir.component';
+import { RevendedorDetailComponent } from './revendedor-detail/revendedor-detail.component';
 
 const revendedorRoutes: Route[] = [
     {
-        path: '',
-        component: RevendedorListComponent
+        path: '', component: RevendedorListComponent
+    },
+    {
+        path: 'details/:id', component: RevendedorDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         RevendedorListComponent,
-        RevendedorEditComponent
+        RevendedorEditComponent,
+        RevendedorDetailComponent,
+        RevendedorModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(revendedorRoutes),
@@ -48,6 +55,7 @@ const revendedorRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

@@ -83,13 +83,6 @@
                 </div>
             </div>
             <div class="flex items-center mt-3 -mx-3">
-                <!-- <button
-                    class="px-3 mr-1"
-                    mat-button
-                    [color]="'primary'"
-                    [routerLink]="['./']">
-                    Editar Suprimento
-                </button> -->
                 <button
                     class="px-3"
                     mat-button
@@ -101,108 +94,9 @@
         </div>
         <div class="order-1 md:order-2 w-full md:w-40 md:ml-6 mb-8 md:mb-4 rounded-lg overflow-hidden">
             <img
-                class="w-full h-full object-cover"
-                src="assets/images/avatars/brian-hughes.jpg"
+                class="w-full object-cover"
+                src="{{ imagens }}{{ suprimento.imagem }}"
                 alt="No Image">
         </div>
     </fuse-card> 
-
-    <!-- MOVIMENTAÇÕES -->
-    <fuse-card class="flex flex-col md:flex-row justify-between w-full p-8 pb-4 filter-listing">
-        <div class="flex flex-col flex-auto order-2 md:order-1">
-            <div class="text-2xl font-semibold leading-tight">Movimentações</div>
-            <div class="mt-6">
-                <table class="w-full min-w-320 table-fixed bg-transparent"
-                        [ngClass]="{'pointer-events-none': isLoading}" mat-table matSort
-                        [dataSource]="suprimentos">
-
-                        <!-- codigo -->
-                        <ng-container matColumnDef="codigo">
-                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
-                                mat-sort-header disableClear>
-                                Código
-                            </th>
-                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
-                                {{row.codigo}}
-                            </td>
-                        </ng-container>
-
-                        <!-- partNumber -->
-                        <ng-container matColumnDef="partNumber">
-                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
-                                mat-sort-header disableClear>
-                                PartNumber
-                            </th>
-                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
-                                {{row.partNumber}}
-                            </td>
-                        </ng-container>
-
-                        <!-- nomenclatura -->
-                        <ng-container matColumnDef="nomenclatura">
-                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
-                                mat-sort-header disableClear>
-                                Nomenclatura
-                            </th>
-                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
-                                {{row.nomenclatura}}
-                            </td>
-                        </ng-container>
-
-                        <!-- quantidade -->
-                        <ng-container matColumnDef="quantidade">
-                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
-                                mat-sort-header disableClear>
-                                Quantidade
-                            </th>
-                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
-                                {{row.quantidade}}
-                            </td>
-                        </ng-container>
-                        
-                        <!-- localizacao -->
-                        <ng-container matColumnDef="localizacao">
-                            <th class="bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell *matHeaderCellDef
-                                mat-sort-header disableClear>
-                                Localização
-                            </th>
-                            <td class="pr-8 truncate" mat-cell *matCellDef="let row">
-                                {{row.localizacao}}
-                            </td>
-                        </ng-container>                        
-
-                        <!-- actions -->
-                        <ng-container matColumnDef="actions">
-                            <th class="w-24 pr-8 bg-gray-50 dark:bg-black dark:bg-opacity-5" mat-header-cell
-                                *matHeaderCellDef>
-                                Ações
-                            </th>
-                            <td class="pr-8" mat-cell *matCellDef="let row">
-                                <div class="flex flex-row">
-                                    <button mat-icon-button [routerLink]="['/suprimentos/details',row.id]">
-                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
-                                    </button>
-                                    
-                                    <button mat-icon-button (click)="edit(row.id)">
-                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
-                                    </button>
-
-                                    <button mat-icon-button (click)="delete(row.id)">
-                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
-                                    </button> 
-                                </div>
-                            </td>
-                        </ng-container>
-
-                        <!-- <tr class="shadow" mat-header-row *matHeaderRowDef="productsTableColumns; sticky: true"></tr>
-                        <tr class="h-18 hover:bg-hover" mat-row *matRowDef="let row; columns: productsTableColumns;"> -->
-                        <!-- </tr> -->
-
-                    </table>
-            </div>
-        </div>
-    </fuse-card> 
-
-</div>
-
 </div>

@@ -21,11 +21,16 @@ import { PanoramicoFinanceiroListComponent } from './panoramico-financeiro-list/
 import { NgxMaskModule } from 'ngx-mask';
 import { PanoramicoFinanceiroModalExcelComponent } from './panoramico-financeiro-modal-excel/panoramico-financeiro-modal-excel.component';
 import { PanoramicoFinanceiroModalPdfComponent } from './panoramico-financeiro-modal-pdf/panoramico-financeiro-modal-pdf.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { PanoramicoFinanceiroDetailComponent } from './panoramico-financeiro-detail/panoramico-financeiro-detail.component';
+import { PanoramicoFinanceiroModalExcluirComponent } from './panoramico-financeiro-modal-excluir/panoramico-financeiro-modal-excluir.component';
 
 const panoramicoFinanceiroRoutes: Route[] = [
     {
-        path: '',
-        component: PanoramicoFinanceiroListComponent
+        path: '', component: PanoramicoFinanceiroListComponent
+    },
+    {
+        path: 'details/:id', component: PanoramicoFinanceiroDetailComponent
     }
 ];
 
@@ -34,7 +39,9 @@ const panoramicoFinanceiroRoutes: Route[] = [
         PanoramicoFinanceiroListComponent,
         PanoramicoFinanceiroEditComponent,
         PanoramicoFinanceiroModalPdfComponent,
-        PanoramicoFinanceiroModalExcelComponent
+        PanoramicoFinanceiroModalExcelComponent,
+        PanoramicoFinanceiroDetailComponent,
+        PanoramicoFinanceiroModalExcluirComponent,
     ],
     imports: [
         RouterModule.forChild(panoramicoFinanceiroRoutes),
@@ -54,6 +61,7 @@ const panoramicoFinanceiroRoutes: Route[] = [
         MatTooltipModule,
         MatExpansionModule,
         NgxMaskModule.forChild(),
+        FuseCardModule,
         SharedModule
     ]
 })

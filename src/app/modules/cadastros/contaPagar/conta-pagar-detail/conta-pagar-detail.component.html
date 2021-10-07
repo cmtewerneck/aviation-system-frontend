@@ -1,0 +1,92 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        Detalhes
+    </div>
+    
+    <!-- Return -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'accent'" (click)="exportToPdf()">
+            <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['/contas-pagar']">
+            <span class="ml-2 mr-1">Voltar</span>
+        </button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="flex flex-row p-8 overflow-y-scroll overflow-x-hidden">
+
+    <fuse-card class="flex flex-col md:flex-row justify-between w-full p-8 pb-4 filter-listing">
+        <div class="flex flex-col flex-auto order-2 md:order-1">
+            <div class="text-2xl font-semibold leading-tight">Vencimento: {{ conta.dataVencimento | date: 'dd/MM/yyyy' }}</div>
+            <div class="mt-6">
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Descrição: </span>&nbsp;
+                    <span>{{ conta.descricao }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Data de Vencimento: </span>&nbsp;
+                    <span>{{ conta.dataVencimento | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Código de Barras: </span>&nbsp;
+                    <span>{{ conta.codigoBarras }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Valor a Pagar: </span>&nbsp;
+                    <span>{{ conta.valorPagar | currency }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Valor Pago: </span>&nbsp;
+                    <span>{{ conta.valorPago | currency }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Data do Pagamento: </span>&nbsp;
+                    <span>{{ conta.dataPagamento | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Forma de Pagamento: </span>&nbsp;
+                    <span *ngIf="conta.formaPagamento == 1">Dinheiro</span>
+                    <span *ngIf="conta.formaPagamento == 2">Cartão</span>
+                    <span *ngIf="conta.formaPagamento == 3">Boleto</span>
+                    <span *ngIf="conta.formaPagamento == 4">PIX</span>
+                    <span *ngIf="conta.formaPagamento == 5">Transferência</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Situação: </span>&nbsp;
+                    <span *ngIf="conta.situacao == true">Pago</span>
+                    <span *ngIf="conta.situacao == false">Não Pago</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Contrato: </span>&nbsp;
+                    <span>IMPLEMENTAR</span>
+                </div>
+            </div>
+        </div>
+    </fuse-card> 
+
+</div>
+
+</div>
+
+<!-- class="w-full h-full object-cover" -->

@@ -18,18 +18,25 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { ManualVooEditComponent } from './manual-voo-edit/manual-voo-edit.component';
 import { ManualVooListComponent } from './manual-voo-list/manual-voo-list.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { ManualVooDetailComponent } from './manual-voo-detail/manual-voo-detail.component';
+import { ManualVooModalExcluirComponent } from './manual-voo-modal-excluir/manual-voo-modal-excluir.component';
 
 const manualVooRoutes: Route[] = [
     {
-        path: '',
-        component: ManualVooListComponent
+        path: '', component: ManualVooListComponent
+    },
+    {
+        path: 'details/:id', component: ManualVooDetailComponent
     }
 ];
 
 @NgModule({
     declarations: [
         ManualVooListComponent,
-        ManualVooEditComponent
+        ManualVooEditComponent,
+        ManualVooDetailComponent,
+        ManualVooModalExcluirComponent
     ],
     imports: [
         RouterModule.forChild(manualVooRoutes),
@@ -48,6 +55,7 @@ const manualVooRoutes: Route[] = [
         MatTableModule,
         MatTooltipModule,
         MatExpansionModule,
+        FuseCardModule,
         SharedModule
     ]
 })

@@ -456,7 +456,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id   : 'motoristas',
                 title: 'Motoristas',
                 type : 'basic',
-                link : '/veiculos/motoristas'
+                link : '/motoristas'
             }
         ]
     },

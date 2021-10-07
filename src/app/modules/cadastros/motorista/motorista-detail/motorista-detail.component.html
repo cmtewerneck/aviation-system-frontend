@@ -1,0 +1,145 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card dark:bg-transparent">
+    
+    <!-- Header -->
+    <div
+    class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">
+        Detalhes
+    </div>
+    
+    <!-- Return -->
+    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <button class="ml-4" mat-flat-button [color]="'accent'" (click)="exportToPdf()">
+            <mat-icon [svgIcon]="'heroicons_outline:download'"></mat-icon>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['/motoristas']">
+            <span class="ml-2 mr-1">Voltar</span>
+        </button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="flex flex-row p-8 overflow-y-scroll overflow-x-hidden">
+
+    <fuse-card class="flex flex-col md:flex-row justify-between w-full p-8 pb-4 filter-listing">
+        <div class="flex flex-col flex-auto order-2 md:order-1">
+            <div class="text-2xl font-semibold leading-tight">{{ motorista.nome }}</div>
+            <div class="mt-6">
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Nome: </span>&nbsp;
+                    <span>{{ motorista.nome }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Documento: </span>&nbsp;
+                    <span>{{ motorista.documento }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Sexo: </span>&nbsp;
+                    <span *ngIf="motorista.sexo == 1">Masculino</span>
+                    <span *ngIf="motorista.sexo == 2">Feminino</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Estado Civil: </span>&nbsp;
+                    <span>{{ motorista.estadoCivil }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Telefone: </span>&nbsp;
+                    <span>{{ motorista.telefone }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">E-mail: </span>&nbsp;
+                    <span>{{ motorista.email }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Data de Nascimento: </span>&nbsp;
+                    <span>{{ motorista.dataNascimento | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Data de Admissão: </span>&nbsp;
+                    <span>{{ motorista.dataAdmissao | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Data de Demissão: </span>&nbsp;
+                    <span>{{ motorista.dataDemissao | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Validade CMA: </span>&nbsp;
+                    <span>{{ motorista.validadeCMA | date: 'dd/MM/yyyy' }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">CANAC: </span>&nbsp;
+                    <span>{{ motorista.canac }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">RG: </span>&nbsp;
+                    <span>{{ motorista.rg }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Salário: </span>&nbsp;
+                    <span>{{ motorista.salario | currency }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Vínculo: </span>&nbsp;
+                    <span *ngIf="motorista.tipoVinculo == 1">MEI</span>
+                    <span *ngIf="motorista.tipoVinculo == 2">CTPS</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Órgão Emissor: </span>&nbsp;
+                    <span>{{ motorista.orgaoEmissor }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Título: </span>&nbsp;
+                    <span>{{ motorista.tituloEleitor }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">PIS: </span>&nbsp;
+                    <span>{{ motorista.numeroPis }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">CTPS: </span>&nbsp;
+                    <span>{{ motorista.numeroCtps }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">CNH: </span>&nbsp;
+                    <span>{{ motorista.numeroCnh }}</span>
+                </div>
+
+                <div class="flex flex-wrap items-center text-secondary my-1">
+                    <span style="font-weight: bold;">Ativo: </span>&nbsp;
+                    <span *ngIf="motorista.ativo == true">Sim</span>
+                    <span *ngIf="motorista.ativo == false">Não</span>
+                </div>
+            </div>
+        </div>
+    </fuse-card> 
+
+</div>
+
+</div>
+
+<!-- class="w-full h-full object-cover" -->

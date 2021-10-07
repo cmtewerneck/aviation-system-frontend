@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'environments/environment';
 import { Suprimento } from '../suprimento.model';
 import { SuprimentoService } from '../suprimento.service';
 
@@ -14,6 +15,7 @@ export class SuprimentoDetailComponent implements OnInit {
 
     suprimentoId: string = "";
     isLoading: boolean = false;
+    imagens: string = environment.imagensUrl;
 
     constructor(private suprimentoService: SuprimentoService, 
                 private route: ActivatedRoute,
