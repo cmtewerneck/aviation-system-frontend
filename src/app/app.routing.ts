@@ -113,7 +113,7 @@ export const appRoutes: Route[] = [
             {path: 'saes', loadChildren: () => import('app/modules/cadastros/sae/sae.module').then(m => m.SaeModule)},
             {path: 'necs', loadChildren: () => import('app/modules/cadastros/nec/nec.module').then(m => m.NecModule)},
             {path: 'listas-passageiros', loadChildren: () => import('app/modules/cadastros/listaPassageiro/listaPassageiro.module').then(m => m.ListaPassageiroModule)},
-            {path: 'materiais-operacionais', loadChildren: () => import('app/modules/cadastros/materialOperacional/materialOperacional.module').then(m => m.MaterialOperacionalModule)},
+            //{path: 'materiais-operacionais', loadChildren: () => import('app/modules/cadastros/materialOperacional/materialOperacional.module').then(m => m.MaterialOperacionalModule)},
             {path: 'ises', loadChildren: () => import('app/modules/cadastros/ise/ise.module').then(m => m.IseModule)},
             {path: 'fips', loadChildren: () => import('app/modules/cadastros/fip/fip.module').then(m => m.FipModule)},
             {path: 'diarios-bordo', loadChildren: () => import('app/modules/cadastros/diarioBordo/diarioBordo.module').then(m => m.DiarioBordoModule)},
